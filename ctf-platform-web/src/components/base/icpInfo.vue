@@ -64,9 +64,10 @@ const handleIconError = (event: Event) => {
 
 <style scoped lang="scss">
 .footer-filing-wrapper {
-    width: 100%;
+    width: calc(100% - 40px);
     padding: 20px 0;
-    background-color: var(--el-bg-color-page);
+    background: none;
+    margin: 10px 20px;
 }
 
 .filing-container {
@@ -90,7 +91,6 @@ const handleIconError = (event: Event) => {
 
 .filing-text {
     font-size: 14px;
-
     display: flex;
     align-items: center;
     flex-wrap: wrap;

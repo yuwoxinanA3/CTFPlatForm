@@ -1,5 +1,5 @@
 <template>
-  <div class="home-wrapper">
+  <BackgroundManager ref="backgroundManager" class="home-wrapper">
     <div id="nav-div">
       <el-menu :default-active="activeIndex" class="el-menu-demo nav-box" mode="horizontal" :ellipsis="false">
         <el-menu-item index="0">
@@ -31,6 +31,13 @@
           <el-menu-item index="6-3">{{ $t('home.toolGuide') }}</el-menu-item>
         </el-sub-menu>
 
+        <!-- 添加背景切换按钮 -->
+        <div class="theme-toggle" @click="toggleBackground">
+          <el-icon size="20px">
+            <Picture v-if="showImageBackground" />
+            <Hide v-else />
+          </el-icon>
+        </div>
 
         <div class="theme-toggle" @click="showLanguageSelector">
           {{ $t('home.language') }}
@@ -81,21 +88,21 @@
       <router-view />
     </div>
 
-    <!-- ICP备案备案信息 ICP filing information -->
-    <FilingInfo :filing="{
-      number: '京ICP备12345678号',
-      link: 'https://beian.miit.gov.cn'
-    }" :security-filing="{
+  </BackgroundManager>
+  <!-- ICP备案备案信息 ICP filing information -->
+  <FilingInfo :filing="{
+    number: '京ICP备12345678号',
+    link: 'https://beian.miit.gov.cn'
+  }" :security-filing="{
       number: '京公网安备12345678901234号',
       link: 'http://www.beian.gov.cn/portal/registerSystemInfo'
     }" icon-url="" />
-  </div>
 </template>
 
 <script lang="ts" setup>
 //官方引入
 import router from '@/router'
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref, reactive, watch } from 'vue'
 
 //插件引入
 import LanguageChange from '@/components/base/languageChange.vue'
@@ -104,22 +111,26 @@ import { useAuthStore } from '@/store/authStore'
 import apiClient from '@/api-services/apis'
 import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+// 图标引入
+import { Picture, Hide } from '@element-plus/icons-vue'
 //自定义引入
-
-//资源引入
-
+import BackgroundManager from '@/components/base/backgroundManager.vue'
 
 //数据
 const activeIndex = ref('1')
 const isDarkTheme = ref(false)
 const languageDialogVisible = ref(false) // 控制语言选择弹窗显示
 const logoutDialogVisible = ref(false) // 控制退出登录弹窗显示
+const backgroundManager = ref<InstanceType<typeof BackgroundManager> | null>(null)
+const showImageBackground = ref(true)
+
 const userInfo = reactive({
   nickName: 'Unkonw User',
   userImage: 'https://img2.baidu.com/it/u=3233382939,3485050990&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
   userType: 1 //枚举值 0 管理员，1 普通用户，2 内测用户
 })
 const { t: $t } = useI18n()
+
 //方法
 
 /**
@@ -149,6 +160,17 @@ const showTeamPanel = () => {
 const toggleTheme = () => {
   isDarkTheme.value = !isDarkTheme.value
   onThemeChange(isDarkTheme.value ? 'dark' : 'light')
+
+  // 同步背景管理器的暗色模式状态
+  backgroundManager.value?.setDarkMode(isDarkTheme.value)
+}
+
+/**
+ * 切换背景显示
+ */
+const toggleBackground = () => {
+  showImageBackground.value = !showImageBackground.value
+  backgroundManager.value?.toggleBackground()
 }
 
 /**
@@ -260,8 +282,18 @@ onMounted(() => {
     onThemeChange(prefersDark ? 'dark' : 'light')
   }
 
-  //获取用户信息
+  // 初始化背景管理器
+  backgroundManager.value?.setDarkMode(isDarkTheme.value)
+  // 设置默认背景图片
+  backgroundManager.value?.setBackgroundImage('https://pic.rmb.bdstatic.com/bjh/events/04e2479f0de89fd0c5b0d24d2bc6986e5194.jpeg@h_1280') // 替换为你自己的背景图片路径
+
+  // 获取用户信息
   fetchUserInfo()
+})
+
+// 监听暗色主题变化，同步到背景管理器
+watch(isDarkTheme, (newVal) => {
+  backgroundManager.value?.setDarkMode(newVal)
 })
 </script>
 
@@ -342,12 +374,9 @@ onMounted(() => {
 
 /* 用户面板容器样式 */
 .user-panel-container {
-  background-color: var(--el-bg-color-page);
+  background: none;
   flex: 1;
-  border-radius: 10px;
-  margin-bottom: 0;
 }
-
 
 /* 退出弹窗按钮样式 */
 .dialog-footer button:first-child {

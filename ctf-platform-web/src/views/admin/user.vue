@@ -51,7 +51,7 @@ const showChangePwdPanel = () => {
     display: flex;
     padding: 20px 0;
     margin: 10px 20px;
-    background-color: none;
+    background: none;
 }
 
 ::v-deep(.el-menu) {
