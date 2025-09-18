@@ -137,8 +137,10 @@ const onThemeChange = (theme: 'light' | 'dark') => {
 
   if (theme === 'dark') {
     app.classList.add('dark-theme')
+    document.body.classList.add('dark-theme')  // 同时给body添加主题类
   } else {
     app.classList.remove('dark-theme')
+    document.body.classList.remove('dark-theme')  // 同时移除body的主题类
   }
 
   // 保存用户主题偏好到 localStorage
