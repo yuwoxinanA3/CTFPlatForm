@@ -1,5 +1,5 @@
 <template>
-    <div style="border-radius: 10px;background-color: var(--el-bg-color); ">
+    <div style="padding:0; " class="card-box">
 
         <el-container>
             <el-aside width="5%"></el-aside>
