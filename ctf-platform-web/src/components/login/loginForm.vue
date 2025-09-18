@@ -122,7 +122,7 @@ import { ElMessage, type ElForm } from 'element-plus';
 import router from '@/router';
 import { useI18n } from 'vue-i18n'
 //自定义引入
-import { type login_req } from '@/api-services/models/login_req';
+import { type login_req } from '@/api-services/models/user/login_req';
 
 //资源引入
 import qqIcon from '@/assets/icons/qq.png'

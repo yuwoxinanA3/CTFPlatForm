@@ -34,7 +34,7 @@ import { onMounted, reactive } from 'vue'
 
 //自定义引入
 import SingleImageUpload from '@/components/base/singleImageUpload.vue'
-import type { text_req } from '@/api-services/models/text_req'
+import type { text_req } from '@/api-services/models/base/text_req'
 import apiClient from '@/api-services/apis'
 import { ElMessage, ElMessageBox } from 'element-plus'
 //资源引入

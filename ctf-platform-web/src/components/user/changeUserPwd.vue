@@ -30,7 +30,7 @@ import type { FormInstance, FormRules } from 'element-plus';
 //自定义引入
 import { ElMessage } from 'element-plus';
 import apiClient from '@/api-services/apis';
-import type { changePwd_req } from '@/api-services/models/changePwdReq';
+import type { changePwd_req } from '@/api-services/models/user/changePwdReq';
 import { useI18n } from 'vue-i18n';
 
 //资源引入
