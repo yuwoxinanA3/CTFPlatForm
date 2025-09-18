@@ -11,7 +11,7 @@
         <el-menu-item index="2" class="nav-font">{{ $t('home.competition') }}</el-menu-item>
 
         <el-menu-item index="3" class="nav-font">{{ $t('home.training') }}</el-menu-item>
-        <el-menu-item index="4" class="nav-font">{{ $t('home.team') }}</el-menu-item>
+        <el-menu-item index="4" class="nav-font" @click="showTeamPanel">{{ $t('home.team') }}</el-menu-item>
 
 
         <el-sub-menu index="5">
@@ -118,6 +118,11 @@ const logoutDialogVisible = ref(false) // 控制退出登录弹窗显示
 const showUserPanel = () => {
   router.push('/home/user/userInfo')
 }
+
+const showTeamPanel = () => {
+  router.push('/home/team')
+}
+
 
 // 切换主题的方法接口
 const toggleTheme = () => {

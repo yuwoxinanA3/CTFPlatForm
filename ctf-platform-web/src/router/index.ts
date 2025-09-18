@@ -33,13 +33,24 @@ const router = createRouter({
                         name: 'changePwd',
                         component: () => import('@/components/user/changeUserPwd.vue'),
                     }]
+                },
+                {
+                    path: 'team',
+                    name: 'team',
+                    component: () => import('@/views/admin/team.vue'),
+                    children: [{
+                        path: 'createTeam',
+                        name: 'createTeam',
+                        component: () => import('@/components/team/createTeam.vue'),
+                    },
+                    {
+                        path: 'teaminfo',
+                        name: 'teaminfo',
+                        component: () => import('@/components/user/changeUserPwd.vue'),
+                    }
+                ]
                 }
             ]
-        },
-        {
-            path: '/team',
-            name: 'team',
-            component: () => import('@/views/admin/team.vue')
         },
         {
             path: '/:pathMatch(.*)',
@@ -53,13 +64,13 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
     // 使用 Pinia store 获取 token
     const authStore = useAuthStore();
-    
+
     // 如果要去登录页，直接放行
     if (to.name === 'login' || to.name === 'index') {
         next();
         return;
     }
-    
+
     // 检查 token 是否存在且未过期
     if (authStore.token) {
         try {
@@ -67,7 +78,7 @@ router.beforeEach((to, _from, next) => {
             const token = authStore.token;
             const payload = JSON.parse(atob(token.split('.')[1]));
             const currentTime = Date.now() / 1000;
-            
+
             if (payload.exp < currentTime) {
                 // token 过期，清除 token 并跳转到登录页
                 authStore.clearToken();

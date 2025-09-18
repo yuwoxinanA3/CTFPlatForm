@@ -1,86 +1,107 @@
 <template>
-    <el-form ref="ruleFormRef" style="max-width: 100%;background-color: #ffffff;padding: 40px 17px;border-radius: 10px;"
-        :model="ruleForm" status-icon :rules="rules" label-width="auto" class="demo-ruleForm">
-        <h1 style="text-align: center;width: 100%;">{{ t('team.createTeam') }}</h1>
-        <!-- 战队队标上传 -->
-        <el-form-item>
-            <SingleImageUpload v-model:value="ruleForm.teamLogo" @success="handleAvatarSuccess" />
-        </el-form-item>
+    <div style="border-radius: 10px;background-color: #ffffff;">
 
-        <!-- 战队名称验证 -->
-        <el-form-item :label="$t('team.teamName')" prop="teamName">
-            <el-input v-model="ruleForm.teamName" style="max-width:100%" :placeholder="$t('team.inputTeamName')">
-                <template #append>
-                    <el-button type="primary" @click="checkTeamNameAvailability(ruleForm.teamName)"
-                        :loading="isChecking" :disabled="!ruleForm.teamName || ruleForm.teamName.trim() === ''">
-                        {{ $t('team.check') }}
-                    </el-button>
-                </template>
-            </el-input>
-            <!-- 添加状态提示 -->
-            <div v-if="isAvailable !== null && lastCheckedName === ruleForm.teamName" style="margin-top: 5px;">
-                <el-text v-if="isAvailable" type="success">✓ {{ $t('team.okName') }}</el-text>
-                <el-text v-else type="danger">✗ {{ $t('team.falseName') }}</el-text>
-            </div>
-        </el-form-item>
+        <el-container>
+            <el-aside width="5%"></el-aside>
+            <el-main>
+                <el-form ref="ruleFormRef"
+                    style="max-width: 100%;background-color: #ffffff;padding: 40px 17px;border-radius: 10px;"
+                    :model="ruleForm" status-icon :rules="rules" label-width="auto" class="demo-ruleForm">
+                    <h1 style="text-align: center;width: 100%;">{{ t('team.createTeam') }}</h1>
+                    <!-- 战队队标上传 -->
+                    <el-form-item>
+                        <SingleImageUpload v-model:value="ruleForm.teamLogo" @success="handleAvatarSuccess" />
+                    </el-form-item>
 
-
-        <el-form-item :label="$t('team.country')" prop="country">
-            <el-input v-model="ruleForm.country" style="max-width:100%" :placeholder="$t('team.inputCountry')">
-            </el-input>
-        </el-form-item>
-
-
-        <el-form-item :label="$t('team.city')" prop="city">
-            <el-input v-model="ruleForm.city" style="max-width:100%" :placeholder="$t('team.inputCity')">
-            </el-input>
-        </el-form-item>
-
-        <el-form-item :label="$t('team.teamWebsite')" prop="teamWebsite">
-            <el-input v-model="ruleForm.teamWebsite" style="max-width:100%">
-                <template #prepend>Http://</template>
-            </el-input>
-        </el-form-item>
-
-        <el-form-item :label="$t('team.teamEmail')" prop="email">
-            <el-input v-model="ruleForm.email" style="max-width:100%" :placeholder="$t('team.inputTeamEmail')">
-            </el-input>
-        </el-form-item>
-
-        <el-form-item :label="$t('team.establishmentTime')" prop="establishmentTime">
-            <el-date-picker v-model="ruleForm.establishmentTime" type="date" :placeholder="$t('team.prickDay')"
-                style="width:100%" />
-        </el-form-item>
+                    <!-- 战队名称验证 -->
+                    <el-form-item :label="$t('team.teamName')" prop="teamName">
+                        <el-input v-model="ruleForm.teamName" style="max-width:100%"
+                            :placeholder="$t('team.inputTeamName')">
+                            <template #append>
+                                <el-button type="primary" @click="checkTeamNameAvailability(ruleForm.teamName)"
+                                    :loading="isChecking"
+                                    :disabled="!ruleForm.teamName || ruleForm.teamName.trim() === ''">
+                                    {{ $t('team.check') }}
+                                </el-button>
+                            </template>
+                        </el-input>
+                        <!-- 添加状态提示 -->
+                        <div v-if="isAvailable !== null && lastCheckedName === ruleForm.teamName"
+                            style="margin-top: 5px;">
+                            <el-text v-if="isAvailable" type="success">✓ {{ $t('team.okName') }}</el-text>
+                            <el-text v-else type="danger">✗ {{ $t('team.falseName') }}</el-text>
+                        </div>
+                    </el-form-item>
 
 
-        <el-form-item :label="$t('team.teamIntroduction')" prop="teamIntroduction">
-            <el-input v-model="ruleForm.teamIntroduction" style="max-width:100%" maxlength="300"
-                :placeholder="$t('team.inputTeamIntroduction')" show-word-limit type="textarea" />
-        </el-form-item>
-
-        <el-form-item :label="$t('team.declaration')" prop="declaration">
-            <el-input v-model="ruleForm.declaration" style="max-width:100%" maxlength="100"
-                :placeholder="$t('team.declaration')" show-word-limit type="textarea" />
-        </el-form-item>
+                    <el-form-item :label="$t('team.country')" prop="country">
+                        <el-input v-model="ruleForm.country" style="max-width:100%"
+                            :placeholder="$t('team.inputCountry')">
+                        </el-input>
+                    </el-form-item>
 
 
-        <el-form-item :label="$t('team.isPublic')" prop="isPublic">
-            <el-switch v-model="ruleForm.isPublic" class="mt-2" inline-prompt :active-icon="Check"
-                :inactive-icon="Close" />
-        </el-form-item>
+                    <el-form-item :label="$t('team.city')" prop="city">
+                        <el-input v-model="ruleForm.city" style="max-width:100%" :placeholder="$t('team.inputCity')">
+                        </el-input>
+                    </el-form-item>
+
+                    <el-form-item :label="$t('team.teamWebsite')" prop="teamWebsite">
+                        <el-input v-model="ruleForm.teamWebsite" style="max-width:100%">
+                            <template #prepend>Http://</template>
+                        </el-input>
+                    </el-form-item>
+
+                    <el-form-item :label="$t('team.teamEmail')" prop="email">
+                        <el-input v-model="ruleForm.email" style="max-width:100%"
+                            :placeholder="$t('team.inputTeamEmail')">
+                        </el-input>
+                    </el-form-item>
+
+                    <el-form-item :label="$t('team.establishmentTime')" prop="establishmentTime">
+                        <el-date-picker v-model="ruleForm.establishmentTime" type="date"
+                            :placeholder="$t('team.prickDay')" style="width:100%" />
+                    </el-form-item>
 
 
-        <el-form-item>
-            <div style="display: flex;justify-content: center;width: 100%;">
-                <el-button type="primary" @click="submitForm(ruleFormRef)" style="width: 70%;" :loading="false"
-                    :disabled="isAvailable === false || !ruleForm.teamName || ruleForm.teamName.trim() === ''">
-                    {{ $t('team.createTeam') }}
-                </el-button>
-            </div>
-        </el-form-item>
+                    <el-form-item :label="$t('team.teamIntroduction')" prop="teamIntroduction">
+                        <el-input v-model="ruleForm.teamIntroduction" style="max-width:100%" maxlength="300"
+                            :placeholder="$t('team.inputTeamIntroduction')" show-word-limit type="textarea" />
+                    </el-form-item>
+
+                    <el-form-item :label="$t('team.declaration')" prop="declaration">
+                        <el-input v-model="ruleForm.declaration" style="max-width:100%" maxlength="100"
+                            :placeholder="$t('team.declaration')" show-word-limit type="textarea" />
+                    </el-form-item>
 
 
-    </el-form>
+                    <el-form-item :label="$t('team.isPublic')" prop="isPublic">
+                        <el-switch v-model="ruleForm.isPublic" class="mt-2" inline-prompt :active-icon="Check"
+                            :inactive-icon="Close" />
+                    </el-form-item>
+
+
+                    <el-form-item>
+                        <div style="display: flex;justify-content: center;width: 100%;">
+                            <el-button type="primary" @click="submitForm(ruleFormRef)" style="width: 70%;"
+                                :loading="false"
+                                :disabled="isAvailable === false || !ruleForm.teamName || ruleForm.teamName.trim() === ''">
+                                {{ $t('team.createTeam') }}
+                            </el-button>
+                        </div>
+                    </el-form-item>
+
+
+                </el-form>
+            </el-main>
+            <el-aside width="40%"></el-aside>
+        </el-container>
+
+
+
+
+
+    </div>
 </template>
 
 <script lang="ts" setup>
