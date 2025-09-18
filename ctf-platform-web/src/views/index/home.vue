@@ -174,6 +174,12 @@ const confirmLogout = () => {
   const authStore = useAuthStore();
   authStore.clearToken();
   logoutDialogVisible.value = false
+
+  //移除黑夜模式
+  const app = document.getElementById('app') || document.body
+  app.classList.remove('dark-theme')
+  document.body.classList.remove('dark-theme')
+
   // 跳转到登录页
   router.push('/login')
 }

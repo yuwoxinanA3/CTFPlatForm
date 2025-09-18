@@ -136,6 +136,9 @@ import { decrypt, encrypt } from '@/utils/cryptoUtils';
 import emitter from '@/utils/eventBus';
 import apiClient from '@/api-services/apis';
 
+//样式引入
+import '@/assets/styles/element-custom/el-input.css';
+
 //数据
 const activeName = ref('first')
 //获取翻译文本
