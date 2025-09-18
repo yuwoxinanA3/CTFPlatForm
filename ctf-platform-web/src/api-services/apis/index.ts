@@ -17,8 +17,6 @@ else {
   console.warn('将使用默认API地址: /api');
 }
 
-console.log('baseURL:', baseURL);
-
 // 创建axios实例
 const apiClient = axios.create({
   baseURL: baseURL, // 设置基础URL
@@ -35,9 +33,6 @@ apiClient.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`;
       }
     }
-    // 打印请求的实际url
-    console.log('Request URL:', `${config.baseURL}${config.url}`);
-    console.log('Request Config:', config);
     return config;
   },
   (error) => {

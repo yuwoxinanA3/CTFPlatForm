@@ -21,7 +21,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CTFPlatForm.Core\CTFPlatForm.Core.csproj" />
 		<ProjectReference Include="..\CTFPlatForm.Infrastructure\CTFPlatForm.Infrastructure.csproj" />
-		<ProjectReference Include="..\CTFPlatForm.Repository\CTFPlatForm.Repository.csproj" />
 		<ProjectReference Include="..\CTFPlatForm.Service\CTFPlatForm.Service.csproj" />
 	</ItemGroup>
 
