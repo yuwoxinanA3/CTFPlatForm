@@ -1,87 +1,96 @@
 <template>
-  <div id="nav-div">
-    <el-menu :default-active="activeIndex" class="el-menu-demo nav-box" mode="horizontal" :ellipsis="false"
-      >
-      <el-menu-item index="0">
-        <img style="width: 50px" src="@/assets/images/主页贴图.png" alt="Rotten logo" />
-        <span style="font-size: x-large;">{{ $t('platform_name') }}</span>
-      </el-menu-item>
-      <el-menu-item index="1" class="nav-font">{{ $t('home.home') }}</el-menu-item>
+  <div class="home-wrapper">
+    <div id="nav-div">
+      <el-menu :default-active="activeIndex" class="el-menu-demo nav-box" mode="horizontal" :ellipsis="false">
+        <el-menu-item index="0">
+          <img style="width: 50px" src="@/assets/images/主页贴图.png" alt="Rotten logo" />
+          <span style="font-size: x-large;">{{ $t('platform_name') }}</span>
+        </el-menu-item>
+        <el-menu-item index="1" class="nav-font">{{ $t('home.home') }}</el-menu-item>
 
-      <el-menu-item index="2" class="nav-font">{{ $t('home.competition') }}</el-menu-item>
+        <el-menu-item index="2" class="nav-font">{{ $t('home.competition') }}</el-menu-item>
 
-      <el-menu-item index="3" class="nav-font">{{ $t('home.training') }}</el-menu-item>
-      <el-menu-item index="4" class="nav-font">{{ $t('home.team') }}</el-menu-item>
-
-
-      <el-sub-menu index="5">
-        <template #title>
-          <div class="nav-font nav-font-submenu">{{ $t('home.resources') }}</div>
-        </template>
-        <el-menu-item index="5-1">{{ $t('home.blog') }}</el-menu-item>
-        <el-menu-item index="5-2">{{ $t('home.video') }}</el-menu-item>
-      </el-sub-menu>
-
-      <el-sub-menu index="6">
-        <template #title>
-          <div class="nav-font nav-font-submenu">{{ $t('home.tools') }}</div>
-        </template>
-        <el-menu-item index="6-1">{{ $t('home.onlineTools') }}</el-menu-item>
-        <el-menu-item index="6-2">{{ $t('home.toolDownload') }}</el-menu-item>
-        <el-menu-item index="6-3">{{ $t('home.toolGuide') }}</el-menu-item>
-      </el-sub-menu>
+        <el-menu-item index="3" class="nav-font">{{ $t('home.training') }}</el-menu-item>
+        <el-menu-item index="4" class="nav-font">{{ $t('home.team') }}</el-menu-item>
 
 
-      <div class="theme-toggle" @click="showLanguageSelector">
-        {{ $t('home.language') }}
-      </div>
+        <el-sub-menu index="5">
+          <template #title>
+            <div class="nav-font nav-font-submenu">{{ $t('home.resources') }}</div>
+          </template>
+          <el-menu-item index="5-1">{{ $t('home.blog') }}</el-menu-item>
+          <el-menu-item index="5-2">{{ $t('home.video') }}</el-menu-item>
+        </el-sub-menu>
 
-      <div class="theme-toggle" @click="toggleTheme">
-        <el-icon size="20px">
-          <component :is="isDarkTheme ? 'Moon' : 'Sunny'" />
-        </el-icon>
-      </div>
-
-      <el-menu-item index="7" class="nav-font" @click="showUserPanel">
-        <el-avatar :size="40" :src="'http://localhost:5193/uploads/avatars/7d4e03c9-ba2d-49f6-9428-a27a8a4dca97.png'" />
-        <span class="username" style="margin-left: 10px;">{{ formatUsername('予我心安A3') }}</span>
-      </el-menu-item>
+        <el-sub-menu index="6">
+          <template #title>
+            <div class="nav-font nav-font-submenu">{{ $t('home.tools') }}</div>
+          </template>
+          <el-menu-item index="6-1">{{ $t('home.onlineTools') }}</el-menu-item>
+          <el-menu-item index="6-2">{{ $t('home.toolDownload') }}</el-menu-item>
+          <el-menu-item index="6-3">{{ $t('home.toolGuide') }}</el-menu-item>
+        </el-sub-menu>
 
 
-      <div class="theme-toggle" @click="handleLogout">
-        <el-icon size="20px">
-          <SwitchButton />
-        </el-icon>
-      </div>
+        <div class="theme-toggle" @click="showLanguageSelector">
+          {{ $t('home.language') }}
+        </div>
 
-    </el-menu>
+        <div class="theme-toggle" @click="toggleTheme">
+          <el-icon size="20px">
+            <component :is="isDarkTheme ? 'Moon' : 'Sunny'" />
+          </el-icon>
+        </div>
+
+        <el-menu-item index="7" class="nav-font" @click="showUserPanel">
+          <el-avatar :size="40"
+            :src="'http://localhost:5193/uploads/avatars/7d4e03c9-ba2d-49f6-9428-a27a8a4dca97.png'" />
+          <span class="username" style="margin-left: 10px;">{{ formatUsername('予我心安A3') }}</span>
+        </el-menu-item>
+
+
+        <div class="theme-toggle" @click="handleLogout">
+          <el-icon size="20px">
+            <SwitchButton />
+          </el-icon>
+        </div>
+
+      </el-menu>
+    </div>
+
+
+    <!-- 语言选择弹窗 -->
+    <el-dialog v-model="languageDialogVisible" width="300px" center>
+      <language-change />
+    </el-dialog>
+
+    <!-- 退出登录确认弹窗 -->
+    <el-dialog v-model="logoutDialogVisible" width="300px" center>
+      <span>{{ $t('home.logoutMessage') }}</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="logoutDialogVisible = false">{{ $t('home.cancel') }}</el-button>
+          <el-button type="primary" @click="confirmLogout">
+            {{ $t('home.confirm') }}
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+
+    <!-- 嵌套路由视图，用于显示子组件 -->
+    <div class="user-panel-container">
+      <router-view />
+    </div>
+
+    <!-- ICP备案备案信息 ICP filing information -->
+    <FilingInfo :filing="{
+      number: '京ICP备12345678号',
+      link: 'https://beian.miit.gov.cn'
+    }" :security-filing="{
+      number: '京公网安备12345678901234号',
+      link: 'http://www.beian.gov.cn/portal/registerSystemInfo'
+    }" icon-url="" />
   </div>
-
-
-  <!-- 语言选择弹窗 -->
-  <el-dialog v-model="languageDialogVisible" width="300px" center>
-    <language-change />
-  </el-dialog>
-
-  <!-- 退出登录确认弹窗 -->
-  <el-dialog v-model="logoutDialogVisible" width="300px" center>
-    <span>{{ $t('home.logoutMessage') }}</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="logoutDialogVisible = false">{{ $t('home.cancel') }}</el-button>
-        <el-button type="primary" @click="confirmLogout">
-          {{ $t('home.confirm') }}
-        </el-button>
-      </span>
-    </template>
-  </el-dialog>
-
-  <!-- 嵌套路由视图，用于显示子组件 -->
-  <div class="user-panel-container">
-    <router-view />
-  </div>
-
-
 </template>
 
 <script lang="ts" setup>
@@ -91,6 +100,7 @@ import { onMounted, ref } from 'vue'
 
 //插件引入
 import LanguageChange from '@/components/base/languageChange.vue'
+import FilingInfo from '@/components/base/icpInfo.vue'
 import { useAuthStore } from '@/store/authStore'
 
 //自定义引入
@@ -179,8 +189,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#nav-div{
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#nav-div {
   padding-top: 10px;
+  flex-shrink: 0;
 }
 
 .nav-box {
@@ -249,8 +266,9 @@ onMounted(() => {
 /* 用户面板容器样式 */
 .user-panel-container {
   background-color: var(--el-bg-color-page);
-  min-height: calc(100vh - 100px);
+  flex: 1;
   border-radius: 10px;
+  margin-bottom: 0;
 }
 
 
