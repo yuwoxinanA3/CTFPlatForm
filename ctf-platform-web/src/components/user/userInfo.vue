@@ -181,7 +181,7 @@ const { t: $t } = useI18n()
 }
 
 .text-content {
-  color: #333;
+  color: var(el-text-color-primary);
   line-height: 30px;
 }
 
@@ -191,6 +191,7 @@ const { t: $t } = useI18n()
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 0;
+  color: var(--el-text-color-regular);
 }
 
 .edit-icon:hover {
