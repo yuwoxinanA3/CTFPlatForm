@@ -6,7 +6,7 @@
           <img style="width: 50px" src="@/assets/images/主页贴图.png" alt="Rotten logo" />
           <span style="font-size: x-large;">{{ $t('platform_name') }}</span>
         </el-menu-item>
-        <el-menu-item index="1" class="nav-font">{{ $t('home.home') }}</el-menu-item>
+        <el-menu-item index="1" class="nav-font" @click="backhHome">{{ $t('home.home') }}</el-menu-item>
 
         <el-menu-item index="2" class="nav-font">{{ $t('home.competition') }}</el-menu-item>
 
@@ -43,9 +43,8 @@
         </div>
 
         <el-menu-item index="7" class="nav-font" @click="showUserPanel">
-          <el-avatar :size="40"
-            :src="'http://localhost:5193/uploads/avatars/7d4e03c9-ba2d-49f6-9428-a27a8a4dca97.png'" />
-          <span class="username" style="margin-left: 10px;">{{ formatUsername('予我心安A3') }}</span>
+          <el-avatar :size="40" :src="userInfo.userImage" />
+          <span class="username" style="margin-left: 10px;">{{ formatUsername(userInfo.nickName) }}</span>
         </el-menu-item>
 
 
@@ -96,13 +95,15 @@
 <script lang="ts" setup>
 //官方引入
 import router from '@/router'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, reactive } from 'vue'
 
 //插件引入
 import LanguageChange from '@/components/base/languageChange.vue'
 import FilingInfo from '@/components/base/icpInfo.vue'
 import { useAuthStore } from '@/store/authStore'
-
+import apiClient from '@/api-services/apis'
+import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 //自定义引入
 
 //资源引入
@@ -113,24 +114,47 @@ const activeIndex = ref('1')
 const isDarkTheme = ref(false)
 const languageDialogVisible = ref(false) // 控制语言选择弹窗显示
 const logoutDialogVisible = ref(false) // 控制退出登录弹窗显示
+const userInfo = reactive({
+  nickName: 'Unkonw User',
+  userImage: 'https://img2.baidu.com/it/u=3233382939,3485050990&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+  userType: 1 //枚举值 0 管理员，1 普通用户，2 内测用户
+})
+const { t: $t } = useI18n()
 //方法
-// 显示用户面板
+
+/**
+ * 返回首页
+ */
+const backhHome = () => {
+  router.push('/home')
+}
+
+/**
+ * 显示用户面板
+ */
 const showUserPanel = () => {
   router.push('/home/user/userInfo')
 }
 
+/**
+ * 显示团队面板
+ */
 const showTeamPanel = () => {
   router.push('/home/team')
 }
 
-
-// 切换主题的方法接口
+/**
+ * 切换主题
+ */
 const toggleTheme = () => {
   isDarkTheme.value = !isDarkTheme.value
   onThemeChange(isDarkTheme.value ? 'dark' : 'light')
 }
 
-// 主题切换实现
+/**
+ * 切换主题
+ * @param theme 主题
+ */
 const onThemeChange = (theme: 'light' | 'dark') => {
   // 使用更可靠的方式获取根元素
   const app = document.getElementById('app') || document.body
@@ -146,29 +170,66 @@ const onThemeChange = (theme: 'light' | 'dark') => {
   // 保存用户主题偏好到 localStorage
   localStorage.setItem('theme', theme)
 
-  // 同时更新 HTML 元素的 data-theme 属性（如果需要）
+  // 同时更新 HTML 元素的 data-theme 属性
   document.documentElement.setAttribute('data-theme', theme)
 }
 
-// 格式化用户名，超过8个字符显示省略号
+/**
+ * 格式化用户名
+ * @param username 用户名
+ * @returns 格式化后的用户名
+ */
 const formatUsername = (username: string) => {
+  //超过8个字符显示省略号
   if (username.length > 8) {
     return username.substring(0, 8) + '...'
   }
   return username
 }
 
-// 显示语言选择弹窗
+/**
+ * 获取用户信息
+ */
+const fetchUserInfo = async () => {
+  try {
+    // 发送请求
+    const response = await apiClient.post('/User/GetUserById', null);
+
+    // 处理成功响应
+    if (response.data) {
+      userInfo.nickName = response.data.result.nickName;
+      userInfo.userImage = response.data.result.image;
+      userInfo.userType = response.data.result.userType;
+    } else {
+      ElMessage.error($t('user.getUserInfoFailed'));
+    }
+  }
+  catch (error: any) {
+    if (error.response?.status === 401) {
+      ElMessage.error($t('user.tokenExpired'));
+    } else {
+      ElMessage.error($t('user.getUserInfoFailed'));
+    }
+  }
+}
+
+/**
+ * 显示语言选择弹窗
+ */
 const showLanguageSelector = () => {
   languageDialogVisible.value = true
 }
 
-// 处理退出登录点击事件
+/**
+ * 显示退出登录弹窗
+ */
 const handleLogout = () => {
   logoutDialogVisible.value = true
 }
 
-// 确认退出登录
+/**
+ * 确认退出登录
+ */
 const confirmLogout = () => {
   // 清除认证信息
   const authStore = useAuthStore();
@@ -198,6 +259,9 @@ onMounted(() => {
     isDarkTheme.value = prefersDark
     onThemeChange(prefersDark ? 'dark' : 'light')
   }
+
+  //获取用户信息
+  fetchUserInfo()
 })
 </script>
 
