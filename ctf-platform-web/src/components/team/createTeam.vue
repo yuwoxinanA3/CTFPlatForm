@@ -1,11 +1,11 @@
 <template>
-    <div style="border-radius: 10px;background-color: #ffffff;">
+    <div style="border-radius: 10px;background-color: var(--el-bg-color); ">
 
         <el-container>
             <el-aside width="5%"></el-aside>
             <el-main>
                 <el-form ref="ruleFormRef"
-                    style="max-width: 100%;background-color: #ffffff;padding: 40px 17px;border-radius: 10px;"
+                    style="max-width: 100%;background-color: var(--el-bg-color);padding: 40px 17px;border-radius: 10px;"
                     :model="ruleForm" status-icon :rules="rules" label-width="auto" class="demo-ruleForm">
                     <h1 style="text-align: center;width: 100%;">{{ t('team.createTeam') }}</h1>
                     <!-- 战队队标上传 -->
@@ -96,11 +96,6 @@
             </el-main>
             <el-aside width="40%"></el-aside>
         </el-container>
-
-
-
-
-
     </div>
 </template>
 
@@ -119,6 +114,9 @@ import type { CreateTeamReq } from '@/api-services/models/team/createTeamReq'
 import apiClient from '@/api-services/apis'
 //资源引入
 
+//样式引入
+import '@/assets/styles/element-custom/el-date-picker.css';
+import '@/assets/styles/element-custom/el-input.css';
 
 //数据
 const ruleFormRef = ref<FormInstance>()
@@ -272,3 +270,8 @@ watch(() => ruleForm.teamName, (newName, _oldName) => {
 
 
 </script>
+
+
+
+
+<style scoped></style>

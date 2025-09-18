@@ -91,6 +91,28 @@
   border-color: var(--el-color-primary);
 }
 
+
+
+/* <el-switch> */
+.dark-theme .el-switch__core {
+  background-color: var(--el-border-color-lighter);
+  border-color: var(--el-border-color-light);
+}
+
+.dark-theme .el-switch__core::before {
+  background-color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-switch__core.is-checked {
+  background-color: var(--el-color-primary);
+}
+
+.dark-theme .el-switch__core.is-checked::before {
+  transform: translateX(100%);
+  background-color: #ffffff;
+}
+
+
 /* 提高选择器优先级并确保body背景色正确应用 */
 body.dark-theme,
 .dark-theme body {
