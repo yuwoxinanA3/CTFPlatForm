@@ -90,7 +90,7 @@ import router from '@/router'
 import { onMounted, ref } from 'vue'
 
 //插件引入
-import LanguageChange from '@/components/languageChange.vue'
+import LanguageChange from '@/components/base/languageChange.vue'
 import { useAuthStore } from '@/store/authStore'
 
 //自定义引入

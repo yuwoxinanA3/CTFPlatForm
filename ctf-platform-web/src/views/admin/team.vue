@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import CreateTeam from '@/components/createTeam.vue';
+import CreateTeam from '@/components/team/createTeam.vue';
 
 
 </script>

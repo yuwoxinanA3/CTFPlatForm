@@ -93,7 +93,7 @@ import { Check, Close } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
 //自定义引入
 import type { text_req } from '@/api-services/models/text_req'
-import SingleImageUpload from '@/components/singleImageUpload.vue'
+import SingleImageUpload from '@/components/base/singleImageUpload.vue'
 import type { CreateTeamReq } from '@/api-services/models/createTeamReq'
 import apiClient from '@/api-services/apis'
 //资源引入
