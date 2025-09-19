@@ -4,7 +4,6 @@ body {
     overflow: auto;
 }
 
-
 // 自定义盒模型
 // 卡片盒子
 .card-box {
@@ -15,14 +14,115 @@ body {
     border: var(--el-border-color) 1px solid;
 }
 
+.dark-theme .card-box {
+    background-color: var(--el-bg-color);
+    padding: 40px 17px;
+    border-radius: 10px;
+    border: var(--el-border-color) 1px solid;
+    position: relative;
+    overflow: hidden;
+
+    // 左右流光
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, #e3b80a, #0056b3);
+        animation: glow-left 4s infinite alternate;
+        z-index: 1;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, #10e630, #c2185b);
+        animation: glow-right 4s infinite alternate;
+        z-index: 1;
+    }
+
+    // 上下流光（使用额外的类或结构）
+    &>.top-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, #e3b80a, #10e630);
+        animation: glow-top 4s infinite alternate;
+        z-index: 1;
+    }
+
+    &>.bottom-glow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, #0056b3, #c2185b);
+        animation: glow-bottom 4s infinite alternate;
+        z-index: 1;
+    }
+}
+
+
+
+// 定义动画
+@keyframes glow-left {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes glow-right {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes glow-top {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes glow-bottom {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+
 
 //居中显示
 .center-box {
     display: flex;
     justify-content: center;
 }
-
-
 
 
 //组件样式

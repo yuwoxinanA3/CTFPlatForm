@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <div class="card-box">
+        <div class="top-glow"></div>
+        <div class="bottom-glow"></div>
         //to do 战队信息显示
     </div>
 </template>
@@ -19,6 +21,4 @@
 //监听
 
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>
