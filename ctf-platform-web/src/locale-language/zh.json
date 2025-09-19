@@ -93,6 +93,7 @@
         "inputDeclaration": "请输入战队宣言",
         "isPublic": "是否公开",
         "createTeam": "创建战队",
+        "teamInfo": "战队信息",
         "falseCommit": "请填写完整信息",
         "fasleName": "战队名称不可用，无法提交",
         "createTeamSuccess": "战队创建成功",

@@ -2,12 +2,17 @@
     <div class="showPanel">
         <div class="sidebar" style="height: 200px;">
             <el-menu default-active="1" class="el-menu-vertical-demo card-box" style="padding: 20px 10px 50px 10px;">
-                <el-menu-item index="1" class="sub-nav-font" @click="showCreateTeam">
+                <el-menu-item index="1" class="sub-nav-font" @click="navigateTo('/home/team/createTeam')">
                     <el-icon :size="18" style="margin-right: 8px;">
-                        <User />
+                        <CirclePlus />
                     </el-icon>
-                    <!-- <span>{{ $t('user.pseronPage') }}</span> -->
-                    <span>创建战队</span>
+                    <span>{{ $t('team.createTeam') }}</span>
+                </el-menu-item>
+                <el-menu-item index="1" class="sub-nav-font" @click="navigateTo('/home/team/teamInfo')">
+                    <el-icon :size="18" style="margin-right: 8px;">
+                        <Tickets />
+                    </el-icon>
+                    <span>{{ $t('team.teamInfo') }}</span>
                 </el-menu-item>
             </el-menu>
         </div>
@@ -27,9 +32,15 @@ import router from '@/router';
 //数据
 
 //方法
-const showCreateTeam = () => {
-    router.push('/home/team/createTeam')
+/**
+ * 跳转
+ * @param path 路径
+ */
+const navigateTo = (path: string) => {
+    router.push(path)
 }
+
+
 
 //监听
 

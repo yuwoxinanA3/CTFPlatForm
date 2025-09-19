@@ -44,9 +44,9 @@ const router = createRouter({
                         component: () => import('@/components/team/createTeam.vue'),
                     },
                     {
-                        path: 'teaminfo',
-                        name: 'teaminfo',
-                        component: () => import('@/components/user/changeUserPwd.vue'),
+                        path: 'teamInfo',
+                        name: 'teamInfo',
+                        component: () => import('@/components/team/teamInfo.vue'),
                     }
                 ]
                 }

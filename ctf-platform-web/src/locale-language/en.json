@@ -93,6 +93,7 @@
     "inputDeclaration": "Please enter team declaration",
     "isPublic": "Is Public",
     "createTeam": "Create Team",
+    "teamInfo": "Team Info",
     "falseCommit": "Please fill in all required information",
     "fasleName": "Team name is not available, cannot submit",
     "createTeamSuccess": "Team created successfully",
