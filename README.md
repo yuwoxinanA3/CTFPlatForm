@@ -1,4 +1,5 @@
 # CTFPlatForm
+(The current document is in Chinese. For the English version, please refer to README-EN.MD)
 ![CTF-Team-Working-Platform](https://repository-images.githubusercontent.com/820962977/ae468a73-bfec-4f39-bd90-7de448bb5cbe)
 CTF团队协作平台是一个专门为CTF（Capture The Flag)竞赛团队设计的工作平台，旨在帮助团队成员有效地协作、交流和提升竞赛技能。本平台包括以下功能：
 
