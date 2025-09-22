@@ -14,7 +14,7 @@ CTF团队协作平台是一个专门为CTF（Capture The Flag)竞赛团队设计
 # 演示环境
 
 核心功能未开发完成，目前仍待定....
-
+![CTF-Team-Working-Platform](https://github.com/yuwoxinanA3/CTFPlatForm/blob/develop/README/image-20250922143545065.png)
 
 
 #  部署文档
