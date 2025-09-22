@@ -2,23 +2,24 @@
 using CTFPlatForm.Core.Dto.User;
 using CTFPlatForm.Core.Interface.Login;
 using CTFPlatForm.Repository.Login;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Service.Login
 {
+    /// <summary>
+    /// 登录服务类
+    /// </summary>
     public class LoginService : BaseService, ILoginService
     {
+        #region 构造函数
         private readonly LoginRepository _loginRepository;
         /// <summary>
         /// 构造函数
         /// </summary>
-        public LoginService(LoginRepository loginRepository) {
+        public LoginService(LoginRepository loginRepository)
+        {
             _loginRepository = loginRepository;
         }
+        #endregion
 
         /// <summary>
         /// 获取用户

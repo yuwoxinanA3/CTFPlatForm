@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CTFPlatForm.Core.Interface
+﻿namespace CTFPlatForm.Core.Interface
 {
+    /// <summary>
+    /// 服务接口基类
+    /// </summary>
     public interface IBaseService
     {
 

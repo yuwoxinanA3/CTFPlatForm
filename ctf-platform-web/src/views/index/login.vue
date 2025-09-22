@@ -82,27 +82,48 @@
 
 <script setup lang="ts">
 //官方引入
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 //插件引入
 
 //自定义引入
 import loginForm from '@/components/login/loginForm.vue'
-import languageChange from '@/components/languageChange.vue';
+import languageChange from '@/components/base/languageChange.vue';
 import registerForm from '@/components/login/registerForm.vue';
 //资源引入
 import logo from '@/assets/icons/logo.png'
 
 // 控制显示登录或注册表单
 const showLoginForm = ref(true)
+// 组件挂载时
+onMounted(() => {
+    // 强制设置为亮色主题并指定黑色背景
+    const app = document.getElementById('app')
+    if (app) {
+        app.classList.remove('dark-theme')
+        app.style.backgroundColor = '#1d1c1c'
+    }
+
+    // 设置 html 和 body 元素背景色确保一致性
+    document.documentElement.style.backgroundColor = '#1d1c1c'
+    document.body.style.backgroundColor = '#1d1c1c'
+    // 设置 html 和 body 元素背景色确保一致性
+    document.documentElement.style.backgroundColor = '#1d1c1c'
+    document.body.style.backgroundColor = '#1d1c1c'
+})
+
+// 组件卸载时恢复背景色
+onUnmounted(() => {
+    // 移除固定的背景色设置，让主题系统接管
+    const app = document.getElementById('app')
+    if (app) {
+        app.style.backgroundColor = ''
+    }
+
+    // 清除 html 和 body 的固定背景色
+    document.documentElement.style.backgroundColor = ''
+    document.body.style.backgroundColor = ''
+})
 </script>
-
-
-<style>
-/* 全局样式 */
-body {
-    background-color: #1d1c1c;
-}
-</style>
 
 
 <style scoped>

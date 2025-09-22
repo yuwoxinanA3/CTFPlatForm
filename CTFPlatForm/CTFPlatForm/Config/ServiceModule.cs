@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace CTFPlatForm.Infrastructure.Tools
 {
+    /// <summary>
+    /// Autofac自动依赖注入辅助类
+    /// </summary>
     public class ServiceModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)

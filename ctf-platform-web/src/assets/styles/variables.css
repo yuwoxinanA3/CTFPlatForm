@@ -1,0 +1,133 @@
+/* variables.css */
+:root {
+  /* 默认浅色主题 */
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f5f5f5;
+  --el-text-color-primary: #333333;
+  --el-text-color-regular: #606266;
+  --el-text-color-secondary: #909399;
+  --el-border-color: #dcdfe6;
+  --el-border-color-light: #e4e7ed;
+  --el-border-color-lighter: #ebeef5;
+  --el-color-primary: #409eff;
+  --el-menu-bg-color: #ffffff;
+  --el-menu-text-color: #909399;
+  --el-menu-hover-bg-color: #ecf5ff;
+  --el-menu-hover-text-color: #409eff;
+}
+
+/* 深色主题 */
+.dark-theme {
+  --el-bg-color: #141414;
+  --el-bg-color-page: #000000;
+  --el-text-color-primary: #ffffff;
+  --el-text-color-regular: #e5eaf3;
+  --el-text-color-secondary: #a3a6ad;
+  --el-border-color: #4c4d4f;
+  --el-border-color-light: #414243;
+  --el-border-color-lighter: #343536;
+  --el-color-primary: #409eff;
+  --el-menu-bg-color: #141414;
+  --el-menu-text-color: #a3a6ad;
+  --el-menu-hover-bg-color: #2d2d2d;
+  --el-menu-hover-text-color: #ffffff;
+}
+
+/* 确保在暗色主题下元素能正确应用变量 */
+.dark-theme body,
+.dark-theme #app {
+  background-color: var(--el-bg-color-page);
+  color: var(--el-text-color-primary);
+}
+
+/* 适配 Element Plus 菜单组件 */
+.dark-theme .el-menu {
+  background-color: var(--el-menu-bg-color);
+  border-bottom: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-menu-item {
+  color: var(--el-menu-text-color);
+}
+
+.dark-theme .el-menu-item:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}
+
+.dark-theme .el-menu-item.is-active {
+  color: var(--el-color-primary);
+}
+
+.dark-theme .el-sub-menu__title {
+  color: var(--el-menu-text-color);
+}
+
+.dark-theme .el-sub-menu__title:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}
+
+/* 适配 Element Plus 其他常用组件 */
+.dark-theme .el-dialog {
+  background-color: var(--el-bg-color);
+  border: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-dialog__header {
+  border-bottom: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-dialog__footer {
+  border-top: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-button {
+  border-color: var(--el-border-color);
+}
+
+.dark-theme .el-button--primary {
+  background-color: var(--el-color-primary);
+  border-color: var(--el-color-primary);
+}
+
+
+
+/* <el-switch> */
+.dark-theme .el-switch__core {
+  background-color: var(--el-border-color-lighter);
+  border-color: var(--el-border-color-light);
+}
+
+.dark-theme .el-switch__core::before {
+  background-color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-switch__core.is-checked {
+  background-color: var(--el-color-primary);
+}
+
+.dark-theme .el-switch__core.is-checked::before {
+  transform: translateX(100%);
+  background-color: #ffffff;
+}
+
+
+/* 提高选择器优先级并确保body背景色正确应用 */
+body.dark-theme,
+.dark-theme body {
+  background-color: var(--el-bg-color-page) !important;
+  color: var(--el-text-color-primary);
+}
+
+/* 确保HTML根元素也有正确的背景色 */
+html.dark-theme {
+  background-color: var(--el-bg-color-page);
+}
+
+/* 确保#app容器也正确应用背景色 */
+#app.dark-theme,
+.dark-theme #app {
+  background-color: var(--el-bg-color-page);
+  color: var(--el-text-color-primary);
+}

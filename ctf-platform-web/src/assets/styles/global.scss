@@ -1,0 +1,188 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+// 自定义盒模型
+// 卡片盒子
+.card-box {
+    background-color: var(--el-bg-color);
+    padding: 40px 17px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: var(--el-border-color) 1px solid;
+}
+
+.dark-theme .card-box {
+    background-color: var(--el-bg-color);
+    padding: 40px 17px;
+    border-radius: 10px;
+    border: var(--el-border-color) 1px solid;
+    position: relative;
+    overflow: hidden;
+
+    // 左右流光
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, #e3b80a, #0056b3);
+        animation: glow-left 4s infinite alternate;
+        z-index: 1;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, #10e630, #c2185b);
+        animation: glow-right 4s infinite alternate;
+        z-index: 1;
+    }
+
+    // 上下流光（使用额外的类或结构）
+    &>.top-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, #e3b80a, #10e630);
+        animation: glow-top 12s infinite alternate;
+        z-index: 1;
+    }
+
+    &>.bottom-glow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, #0056b3, #c2185b);
+        animation: glow-bottom 12s infinite alternate;
+        z-index: 1;
+    }
+}
+
+
+
+// 定义动画
+@keyframes glow-left {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes glow-right {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes glow-top {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes glow-bottom {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+
+
+//居中显示
+.center-box {
+    display: flex;
+    justify-content: center;
+}
+
+
+//组件样式
+// 自定义暗色主题下的 el-input 样式
+.dark-theme {
+
+    //自定义el-inpout样式
+    .el-input__inner {
+        color: #ffffff; // 更纯的白色
+        background-color: #1d1d1d; // 更深的背景色
+    }
+
+    .el-input__wrapper {
+        background-color: #1d1d1d;
+
+        &:hover {
+            background-color: #2d2d2d;
+        }
+
+        &.is-focus {
+            background-color: #252525;
+        }
+    }
+
+    //自定义el-button样式
+    .el-button {
+        color: #ffffff; // 设置为纯白色文字
+        background-color: #2d2d2d; // 设置更深的背景色
+        border-color: #4c4d4f; // 设置边框颜色
+
+        &:hover {
+            color: #ffffff;
+            background-color: #3d3d3d;
+            border-color: #606266;
+        }
+
+        &:focus {
+            color: #ffffff;
+            background-color: #3d3d3d;
+            border-color: #606266;
+        }
+    }
+
+    //自定义el-button样式
+    .el-button--primary {
+        background-color: #409eff;
+        border-color: #409eff;
+        color: #ffffff; // 确保文字为纯白色
+
+        &:hover {
+            background-color: #66b1ff;
+            border-color: #66b1ff;
+            color: #ffffff;
+        }
+
+        &:focus {
+            background-color: #66b1ff;
+            border-color: #66b1ff;
+            color: #ffffff;
+        }
+    }
+
+}

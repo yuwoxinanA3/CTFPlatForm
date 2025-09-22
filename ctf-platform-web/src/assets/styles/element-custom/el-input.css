@@ -1,0 +1,109 @@
+.dark-theme .el-input__wrapper {
+    background-color: var(--el-bg-color);
+    border-color: var(--el-border-color-light);
+    box-shadow: 0 0 0 1px var(--el-border-color-light) inset;
+}
+
+.dark-theme .el-input__inner {
+    background-color: var(--el-bg-color);
+    border-color: var(--el-border-color-light);
+    color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-input__inner:focus,
+.dark-theme .el-input__wrapper.is-focus {
+    border-color: var(--el-color-primary);
+    box-shadow: 0 0 0 1px var(--el-color-primary) inset;
+}
+
+.dark-theme .el-input__prefix,
+.dark-theme .el-input__suffix {
+    color: var(--el-text-color-secondary);
+}
+
+.dark-theme .el-input__placeholder {
+    color: var(--el-text-color-secondary);
+}
+
+/* 禁用状态 */
+.dark-theme .el-input.is-disabled .el-input__inner,
+.dark-theme .el-input.is-disabled .el-input__wrapper {
+    background-color: var(--el-disabled-bg-color, #2d2d2d);
+    border-color: var(--el-border-color-light);
+    color: var(--el-text-color-placeholder, #a3a6ad);
+    opacity: 1;
+}
+
+.dark-theme .el-input.is-disabled .el-input__inner::-webkit-input-placeholder {
+    color: var(--el-text-color-placeholder, #a3a6ad);
+}
+
+/* 悬停状态 */
+.dark-theme .el-input:hover:not(.is-disabled) .el-input__wrapper {
+    border-color: var(--el-color-primary);
+    box-shadow: 0 0 0 1px var(--el-color-primary) inset;
+}
+
+/* textarea 样式 */
+.dark-theme .el-textarea__inner {
+    background-color: var(--el-bg-color);
+    border-color: var(--el-border-color-light);
+    color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-textarea__inner:focus {
+    border-color: var(--el-color-primary);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--el-color-primary) inset;
+}
+
+/* 字数限制显示样式 */
+.dark-theme .el-input__count {
+  color: var(--el-text-color-secondary);
+  background-color: var(--el-bg-color);
+  padding: 4px 8px;
+  font-size: 12px;
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+}
+
+.dark-theme .el-textarea__inner::-webkit-input-placeholder {
+    color: var(--el-text-color-secondary);
+}
+
+/* textarea 禁用状态 */
+.dark-theme .el-textarea.is-disabled .el-textarea__inner {
+    background-color: var(--el-disabled-bg-color, #2d2d2d);
+    border-color: var(--el-border-color-light);
+    color: var(--el-text-color-placeholder, #a3a6ad);
+    opacity: 1;
+}
+
+/* 清除按钮 */
+.dark-theme .el-input__suffix .el-input__clear {
+    color: var(--el-text-color-secondary);
+}
+
+.dark-theme .el-input__suffix .el-input__clear:hover {
+    color: var(--el-text-color-primary);
+}
+
+/* 输入框前缀和后缀图标 */
+.dark-theme .el-input-group__append,
+.dark-theme .el-input-group__prepend {
+    background-color: var(--el-bg-color);
+    border-color: var(--el-border-color-light);
+    color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-input-group__append,
+.dark-theme .el-input-group__prepend {
+    border-color: var(--el-border-color-light);
+}
+
+.dark-theme .el-input-group__append .el-button,
+.dark-theme .el-input-group__prepend .el-button {
+    background-color: transparent;
+    border: none;
+    color: var(--el-text-color-primary);
+}

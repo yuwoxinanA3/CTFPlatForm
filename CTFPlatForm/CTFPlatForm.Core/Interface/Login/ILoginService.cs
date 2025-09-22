@@ -1,13 +1,11 @@
 ﻿using CTFPlatForm.Core.Dto.Login;
 using CTFPlatForm.Core.Dto.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Core.Interface.Login
 {
+    /// <summary>
+    /// 登录服务接口类
+    /// </summary>
     public interface ILoginService
     {
         /// <summary>
@@ -15,7 +13,7 @@ namespace CTFPlatForm.Core.Interface.Login
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public  Task<UserRes> GetUser(LoginReq req);
+        public Task<UserRes> GetUser(LoginReq req);
 
     }
 }

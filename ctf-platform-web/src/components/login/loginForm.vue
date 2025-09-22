@@ -27,8 +27,8 @@
                                     </div>
                                     <div>
                                         <span id="register" @click="handleRegisterClick">{{ $t('login.register')
-                                            }}</span>
-
+                                        }}</span>
+                                        &nbsp;
                                         <span id="forgetPassword" @click="forgetPassword">{{
                                             $t('login.forgetPassword') }}</span>
 
@@ -46,8 +46,6 @@
                                     @click="qqLogin" title="QQ">
                                 <img :src="WeChatIcon" width="22" height="22"
                                     style="vertical-align:middle;margin-left: 8px" @click="WeChatLogin" title="WeChat">
-                                <img :src="zhifubaoIcon" width="22" height="22"
-                                    style="vertical-align:middle;margin-left: 8px" @click="payLogin" title="支付宝">
                                 <img :src="giteeIcon" width="22" height="22"
                                     style="vertical-align:middle;margin-left: 8px" @click="giteeLogin" title="Gitee">
                                 <img :src="githubIcon" width="22" height="22"
@@ -57,7 +55,7 @@
                             <div id="login_button_box">
                                 <el-button id="login_button" type="primary" @click="submitForm">{{
                                     $t('login.submit')
-                                    }}</el-button>
+                                }}</el-button>
                                 <el-button id="reset_button" type="info" @click="resetForm" plain>{{
                                     $t('login.reset') }}</el-button>
                             </div>
@@ -96,7 +94,7 @@
                                     <el-button id="login_button" type="primary" @click="submitPhoneForm">{{
                                         $t('login.submit') }}</el-button>
                                     <el-button id="reset_button" type="info" plain>{{ $t('login.reset')
-                                        }}</el-button>
+                                    }}</el-button>
                                 </div>
                             </el-form-item>
 
@@ -122,18 +120,21 @@ import { ElMessage, type ElForm } from 'element-plus';
 import router from '@/router';
 import { useI18n } from 'vue-i18n'
 //自定义引入
-import { type login_req } from '@/api-services/models/login_req';
+import { type login_req } from '@/api-services/models/user/login_req';
 
 //资源引入
 import qqIcon from '@/assets/icons/qq.png'
 import WeChatIcon from '@/assets/icons/WeChat.png'
-import zhifubaoIcon from '@/assets/icons/alipay.png'
 import giteeIcon from '@/assets/icons/gitee.png'
 import githubIcon from '@/assets/icons/github.png'
 import { useAuthStore } from '@/store/authStore';
 import { deleteCookie, getCookie, setCookie } from '@/utils/cookieUtils';
 import { decrypt, encrypt } from '@/utils/cryptoUtils';
 import emitter from '@/utils/eventBus';
+import apiClient from '@/api-services/apis';
+
+//样式引入
+import '@/assets/styles/element-custom/el-input.css';
 
 //数据
 const activeName = ref('first')
@@ -200,7 +201,7 @@ const submitForm = async () => {
                 PassWord: form.value.password
             };
             // 发送登录请求
-            const response = await axios.post('/api/Login/Login', loginData);
+            const response = await apiClient.post('/Login/Login', loginData);
             const token = response.data.token;
             // 存储 token 到 pinia
             const authStore = useAuthStore();
@@ -217,7 +218,7 @@ const submitForm = async () => {
                 deleteCookie('savedUsername');
                 deleteCookie('savedPassword');
             }
-          // 登录成功后将背景色改为白色
+            // 登录成功后将背景色改为白色
             document.body.style.backgroundColor = '#ebeef5';
             // 登录成功后跳转到主页
             router.push('/home')
@@ -242,11 +243,11 @@ const submitForm = async () => {
                     default:
                         ElMessage.error(`${t('error.unknownError')}: ${error.response.status}`);
                 }
-            } 
+            }
             // 请求发出但没有收到响应（网络问题）
             else if (error.request) {
                 ElMessage.error(t('error.networkError'));
-            } 
+            }
             // 其他错误
             else {
                 ElMessage.error(t('error.unknownError'));
@@ -263,6 +264,14 @@ const submitForm = async () => {
  * 忘记密码
  */
 function forgetPassword() {
+
+    // 检查用户是否输入了账号
+    if (!form.value.username.trim()) {
+        ElMessage.warning("验证码系统暂未开发，请联系管理员进行密码重置");
+        return;
+    }
+
+
 
 }
 
@@ -318,12 +327,6 @@ function WeChatLogin() {
     ElMessage('微信登录功能待开发')
 }
 
-/**
- * 支付宝登录
- */
-function payLogin() {
-    ElMessage('支付宝登录功能待开发')
-}
 
 /**
  * Gitee登录

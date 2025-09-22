@@ -1,176 +1,385 @@
 <template>
-    <el-menu :default-active="activeIndex" class="el-menu-demo nav-box" mode="horizontal" :ellipsis="false"
-        @select="handleSelect">
+  <BackgroundManager ref="backgroundManager" class="home-wrapper">
+    <div id="nav-div">
+      <el-menu :default-active="activeIndex" class="el-menu-demo nav-box" mode="horizontal" :ellipsis="false">
         <el-menu-item index="0">
-            <img style="width: 50px" src="@/assets/images/主页贴图.png" alt="Rotten logo" />
-            <span style="font-size: x-large;">CTF团队协作平台</span>
+          <img style="width: 50px" src="@/assets/images/主页贴图.png" alt="Rotten logo" />
+          <span style="font-size: x-large;">{{ $t('platform_name') }}</span>
         </el-menu-item>
-        <el-menu-item index="1" class="nav-font">首页</el-menu-item>
+        <el-menu-item index="1" class="nav-font" @click="backhHome">{{ $t('home.home') }}</el-menu-item>
 
-        <el-menu-item index="2" class="nav-font">赛事中心</el-menu-item>
+        <el-menu-item index="2" class="nav-font">{{ $t('home.competition') }}</el-menu-item>
 
-        <el-menu-item index="3" class="nav-font">训练中心</el-menu-item>
-        <el-menu-item index="4" class="nav-font">战队中心</el-menu-item>
+        <el-menu-item index="3" class="nav-font">{{ $t('home.training') }}</el-menu-item>
+        <el-menu-item index="4" class="nav-font" @click="showTeamPanel">{{ $t('home.team') }}</el-menu-item>
 
 
         <el-sub-menu index="5">
-            <template #title>
-                <div class="nav-font nav-font-submenu">资料中心</div>
-            </template>
-            <el-menu-item index="5-1">博客平台</el-menu-item>
-            <el-menu-item index="5-2">视频平台</el-menu-item>
+          <template #title>
+            <div class="nav-font nav-font-submenu">{{ $t('home.resources') }}</div>
+          </template>
+          <el-menu-item index="5-1">{{ $t('home.blog') }}</el-menu-item>
+          <el-menu-item index="5-2">{{ $t('home.video') }}</el-menu-item>
         </el-sub-menu>
 
         <el-sub-menu index="6">
-            <template #title>
-                <div class="nav-font nav-font-submenu">工具中心</div>
-            </template>
-            <el-menu-item index="6-1">在线工具</el-menu-item>
-            <el-menu-item index="6-2">工具下载</el-menu-item>
-            <el-menu-item index="6-3">工具指南</el-menu-item>
+          <template #title>
+            <div class="nav-font nav-font-submenu">{{ $t('home.tools') }}</div>
+          </template>
+          <el-menu-item index="6-1">{{ $t('home.onlineTools') }}</el-menu-item>
+          <el-menu-item index="6-2">{{ $t('home.toolDownload') }}</el-menu-item>
+          <el-menu-item index="6-3">{{ $t('home.toolGuide') }}</el-menu-item>
         </el-sub-menu>
 
+        <!-- 添加背景切换按钮 -->
+        <div class="theme-toggle" @click="toggleBackground">
+          <el-icon size="20px">
+            <Picture v-if="showImageBackground" />
+            <Hide v-else />
+          </el-icon>
+        </div>
 
         <div class="theme-toggle" @click="showLanguageSelector">
-            {{ $t('home.language') }}
+          {{ $t('home.language') }}
         </div>
 
         <div class="theme-toggle" @click="toggleTheme">
-            <el-icon size="20px">
-                <component :is="isDarkTheme ? 'Moon' : 'Sunny'" />
-            </el-icon>
+          <el-icon size="20px">
+            <component :is="isDarkTheme ? 'Moon' : 'Sunny'" />
+          </el-icon>
         </div>
 
         <el-menu-item index="7" class="nav-font" @click="showUserPanel">
-            <el-avatar :size="40"
-                :src="'http://localhost:5193/uploads/avatars/7d4e03c9-ba2d-49f6-9428-a27a8a4dca97.png'" />
-            <span class="username" style="margin-left: 10px;">{{ formatUsername('予我心安A3') }}</span>
+          <el-avatar :size="40" :src="userInfo.userImage" />
+          <span class="username" style="margin-left: 10px;">{{ formatUsername(userInfo.nickName) }}</span>
         </el-menu-item>
 
-    </el-menu>
+
+        <div class="theme-toggle" @click="handleLogout">
+          <el-icon size="20px">
+            <SwitchButton />
+          </el-icon>
+        </div>
+
+      </el-menu>
+    </div>
+
 
     <!-- 语言选择弹窗 -->
     <el-dialog v-model="languageDialogVisible" width="300px" center>
-        <language-change />
+      <language-change />
+    </el-dialog>
+
+    <!-- 退出登录确认弹窗 -->
+    <el-dialog v-model="logoutDialogVisible" width="300px" center>
+      <span>{{ $t('home.logoutMessage') }}</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="logoutDialogVisible = false">{{ $t('home.cancel') }}</el-button>
+          <el-button type="primary" @click="confirmLogout">
+            {{ $t('home.confirm') }}
+          </el-button>
+        </span>
+      </template>
     </el-dialog>
 
     <!-- 嵌套路由视图，用于显示子组件 -->
     <div class="user-panel-container">
-        <router-view />
+      <router-view />
     </div>
 
-
+  </BackgroundManager>
+  <!-- ICP备案备案信息 ICP filing information -->
+  <FilingInfo :filing="{
+    number: '京ICP备12345678号',
+    link: 'https://beian.miit.gov.cn'
+  }" :security-filing="{
+      number: '京公网安备12345678901234号',
+      link: 'http://www.beian.gov.cn/portal/registerSystemInfo'
+    }" icon-url="" />
 </template>
 
 <script lang="ts" setup>
 //官方引入
 import router from '@/router'
-import { ref } from 'vue'
+import { onMounted, ref, reactive, watch } from 'vue'
 
 //插件引入
-import LanguageChange from '@/components/languageChange.vue'
-
+import LanguageChange from '@/components/base/languageChange.vue'
+import FilingInfo from '@/components/base/icpInfo.vue'
+import { useAuthStore } from '@/store/authStore'
+import apiClient from '@/api-services/apis'
+import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
+// 图标引入
+import { Picture, Hide } from '@element-plus/icons-vue'
 //自定义引入
-
-//资源引入
-
+import BackgroundManager from '@/components/base/backgroundManager.vue'
 
 //数据
 const activeIndex = ref('1')
 const isDarkTheme = ref(false)
 const languageDialogVisible = ref(false) // 控制语言选择弹窗显示
+const logoutDialogVisible = ref(false) // 控制退出登录弹窗显示
+const backgroundManager = ref<InstanceType<typeof BackgroundManager> | null>(null)
+const showImageBackground = ref(true)
+
+const userInfo = reactive({
+  nickName: 'Unkonw User',
+  userImage: 'https://img2.baidu.com/it/u=3233382939,3485050990&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+  userType: 1 //枚举值 0 管理员，1 普通用户，2 内测用户
+})
+const { t: $t } = useI18n()
+
 //方法
-const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+
+/**
+ * 返回首页
+ */
+const backhHome = () => {
+  router.push('/home')
 }
 
-// 显示用户面板
+/**
+ * 显示用户面板
+ */
 const showUserPanel = () => {
-    router.push('/home/user/userInfo')
+  router.push('/home/user/userInfo')
 }
 
-// 切换主题的方法接口
+/**
+ * 显示团队面板
+ */
+const showTeamPanel = () => {
+  router.push('/home/team')
+}
+
+/**
+ * 切换主题
+ */
 const toggleTheme = () => {
-    isDarkTheme.value = !isDarkTheme.value
-    // TODO: 在这里添加实际的主题切换逻辑
-    // 你可以在这里调用切换主题的函数或 emit 事件
-    onThemeChange(isDarkTheme.value ? 'dark' : 'light')
+  isDarkTheme.value = !isDarkTheme.value
+  onThemeChange(isDarkTheme.value ? 'dark' : 'light')
+
+  // 同步背景管理器的暗色模式状态
+  backgroundManager.value?.setDarkMode(isDarkTheme.value)
 }
 
-// 主题切换接口，供外部实现具体逻辑
+/**
+ * 切换背景显示
+ */
+const toggleBackground = () => {
+  showImageBackground.value = !showImageBackground.value
+  backgroundManager.value?.toggleBackground()
+}
+
+/**
+ * 切换主题
+ * @param theme 主题
+ */
 const onThemeChange = (theme: 'light' | 'dark') => {
-    // 这里留一个接口方法，你可以在这里实现具体的主题切换逻辑
-    console.log('Theme changed to:', theme)
-    // 例如：
-    // - 切换 CSS 类
-    // - 调用 store 中的方法
-    // - 修改 CSS 变量
-    // - 调用 API 保存用户偏好
+  // 使用更可靠的方式获取根元素
+  const app = document.getElementById('app') || document.body
+
+  if (theme === 'dark') {
+    app.classList.add('dark-theme')
+    document.body.classList.add('dark-theme')  // 同时给body添加主题类
+  } else {
+    app.classList.remove('dark-theme')
+    document.body.classList.remove('dark-theme')  // 同时移除body的主题类
+  }
+
+  // 保存用户主题偏好到 localStorage
+  localStorage.setItem('theme', theme)
+
+  // 同时更新 HTML 元素的 data-theme 属性
+  document.documentElement.setAttribute('data-theme', theme)
 }
 
-// 格式化用户名，超过8个字符显示省略号
+/**
+ * 格式化用户名
+ * @param username 用户名
+ * @returns 格式化后的用户名
+ */
 const formatUsername = (username: string) => {
-    if (username.length > 8) {
-        return username.substring(0, 8) + '...'
+  //超过8个字符显示省略号
+  if (username.length > 8) {
+    return username.substring(0, 8) + '...'
+  }
+  return username
+}
+
+/**
+ * 获取用户信息
+ */
+const fetchUserInfo = async () => {
+  try {
+    // 发送请求
+    const response = await apiClient.post('/User/GetUserById', null);
+
+    // 处理成功响应
+    if (response.data) {
+      userInfo.nickName = response.data.result.nickName;
+      userInfo.userImage = response.data.result.image;
+      userInfo.userType = response.data.result.userType;
+    } else {
+      ElMessage.error($t('user.getUserInfoFailed'));
     }
-    return username
+  }
+  catch (error: any) {
+    if (error.response?.status === 401) {
+      ElMessage.error($t('user.tokenExpired'));
+    } else {
+      ElMessage.error($t('user.getUserInfoFailed'));
+    }
+  }
 }
 
-// 显示语言选择弹窗
+/**
+ * 显示语言选择弹窗
+ */
 const showLanguageSelector = () => {
-    languageDialogVisible.value = true
+  languageDialogVisible.value = true
 }
 
+/**
+ * 显示退出登录弹窗
+ */
+const handleLogout = () => {
+  logoutDialogVisible.value = true
+}
+
+/**
+ * 确认退出登录
+ */
+const confirmLogout = () => {
+  // 清除认证信息
+  const authStore = useAuthStore();
+  authStore.clearToken();
+  logoutDialogVisible.value = false
+
+  //移除黑夜模式
+  const app = document.getElementById('app') || document.body
+  app.classList.remove('dark-theme')
+  document.body.classList.remove('dark-theme')
+
+  // 跳转到登录页
+  router.push('/login')
+}
+
+//监听
+// 在组件挂载时初始化主题
+onMounted(() => {
+  // 从 localStorage 获取保存的主题，如果没有则根据系统偏好设置
+  const savedTheme = localStorage.getItem('theme')
+  if (savedTheme) {
+    isDarkTheme.value = savedTheme === 'dark'
+    onThemeChange(savedTheme as 'light' | 'dark')
+  } else {
+    // 根据系统主题设置初始主题
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    isDarkTheme.value = prefersDark
+    onThemeChange(prefersDark ? 'dark' : 'light')
+  }
+
+  // 初始化背景管理器
+  backgroundManager.value?.setDarkMode(isDarkTheme.value)
+  // 设置默认背景图片
+  backgroundManager.value?.setBackgroundImage('https://pic.rmb.bdstatic.com/bjh/events/04e2479f0de89fd0c5b0d24d2bc6986e5194.jpeg@h_1280') // 替换为你自己的背景图片路径
+
+  // 获取用户信息
+  fetchUserInfo()
+})
+
+// 监听暗色主题变化，同步到背景管理器
+watch(isDarkTheme, (newVal) => {
+  backgroundManager.value?.setDarkMode(newVal)
+})
 </script>
 
 <style scoped>
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#nav-div {
+  padding-top: 10px;
+  flex-shrink: 0;
+}
+
 .nav-box {
-    background-color: white;
-    padding: 0px 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 10px 20px;
+  background-color: var(--el-menu-bg-color);
+  /* 使用 CSS 变量 */
+  margin: 0 20px;
+  padding: 0px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--el-border-color);
 }
 
 .nav-font {
-    font-size: larger;
-    color: #909399;
+  font-size: larger;
+  color: var(--el-menu-text-color);
+  /* 使用 CSS 变量 */
 }
 
 .nav-font-submenu {
-    font-size: 21px;
-    font-weight: 350;
+  font-size: 21px;
+  font-weight: 350;
+  color: var(--el-menu-text-color);
+  /* 使用 CSS 变量 */
+}
+
+/* 暗色主题下的特殊样式 */
+.dark-theme .nav-box {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .nav-font {
+  color: var(--el-menu-text-color);
+}
+
+.dark-theme .nav-font-submenu {
+  color: var(--el-menu-text-color);
 }
 
 .el-menu--horizontal {
-    --el-menu-horizontal-height: 70px;
+  --el-menu-horizontal-height: 70px;
 }
 
-/*从语言选择开始居右 */
+/* 从语言选择开始居右 */
 .el-menu--horizontal> :nth-child(7) {
-    margin-right: auto;
+  margin-right: auto;
 }
 
 /* 为独立的图标添加样式 */
 .theme-toggle {
-    height: var(--el-menu-horizontal-height);
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    color: #909399;
-    font-size: larger;
+  height: var(--el-menu-horizontal-height);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: var(--el-menu-text-color);
+  /* 使用 CSS 变量 */
+  font-size: larger;
 }
 
-/* .theme-toggle:hover {
-    background-color: var(--el-menu-hover-bg-color);
-    color: var(--el-menu-hover-text-color);
-} */
+.theme-toggle:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}
 
 /* 用户面板容器样式 */
 .user-panel-container {
-    position: relative;
-    width: 100%;
+  background: none;
+  flex: 1;
+}
+
+/* 退出弹窗按钮样式 */
+.dialog-footer button:first-child {
+  margin-right: 10px;
 }
 </style>

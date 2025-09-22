@@ -1,20 +1,23 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Infrastructure.Tools
 {
+    /// <summary>
+    /// JWT认证辅助类
+    /// </summary>
     public class JWTHelper
     {
-        protected readonly IConfiguration _configuration;
 
         #region 构造函数
+        protected readonly IConfiguration _configuration;
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="configuration"></param>
         public JWTHelper(IConfiguration configuration)
         {
             _configuration = configuration;

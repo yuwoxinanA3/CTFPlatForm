@@ -1,12 +1,10 @@
 ﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Core.Common
 {
+    /// <summary>
+    /// 基础实体类，通用表字段
+    /// </summary>
     public class IEntity:IBase
     {
         /// <summary>

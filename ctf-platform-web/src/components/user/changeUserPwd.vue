@@ -30,7 +30,7 @@ import type { FormInstance, FormRules } from 'element-plus';
 //自定义引入
 import { ElMessage } from 'element-plus';
 import apiClient from '@/api-services/apis';
-import type { changePwd_req } from '@/api-services/models/changePwdReq';
+import type { changePwd_req } from '@/api-services/models/user/changePwdReq';
 import { useI18n } from 'vue-i18n';
 
 //资源引入
@@ -127,7 +127,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
 <style scoped>
 .card-box {
     padding: 20px;
-    background: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }

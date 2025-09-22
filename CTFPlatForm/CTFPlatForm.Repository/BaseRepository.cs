@@ -1,9 +1,4 @@
 ﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Repository
 {
@@ -12,6 +7,7 @@ namespace CTFPlatForm.Repository
     /// </summary>
     public class BaseRepository
     {
+        #region 构造函数
         /// <summary>
         /// SqlSugarClient 实例，db
         /// </summary>
@@ -25,6 +21,7 @@ namespace CTFPlatForm.Repository
         {
             _db = db;
         }
+        #endregion
 
     }
 }

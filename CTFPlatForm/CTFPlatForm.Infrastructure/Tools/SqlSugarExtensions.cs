@@ -1,7 +1,6 @@
-﻿using SqlSugar;
-using System.Text.RegularExpressions;
-using System.Linq;
-
+﻿/// <summary>
+/// SqlSugar扩展类
+/// </summary>
 public static class SqlSugarExtensions
 {
     

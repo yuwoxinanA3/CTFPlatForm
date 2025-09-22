@@ -1,31 +1,32 @@
-﻿using BenchmarkDotNet.Loggers;
-using CTFPlatForm.Core.Dto.Base;
-using CTFPlatForm.Core.Dto.User;
+﻿using CTFPlatForm.Core.Dto.User;
 using CTFPlatForm.Core.Entitys;
 using CTFPlatForm.Core.Interface.User;
 using CTFPlatForm.Core.Other;
-using CTFPlatForm.Repository.Login;
 using CTFPlatForm.Repository.User;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Service.Register
 {
+    /// <summary>
+    /// 用户服务类
+    /// </summary>
     public class UserService : IUserService
     {
+
+        #region 构造函数
         private UserRepository _userRepository;
         private ILogger<UserService> _logger;
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="userRepository"></param>
+        /// <param name="logger"></param>
         public UserService(UserRepository userRepository, ILogger<UserService> logger)
         {
             _userRepository = userRepository;
             _logger = logger;
         }
-
+        #endregion
 
         /// <summary>
         /// 账号密码注册用户
@@ -111,7 +112,13 @@ namespace CTFPlatForm.Service.Register
                 };
         }
 
-        public async Task<ApiResult> ChangeUserImage(string userId,string userImageUrl)
+        /// <summary>
+        /// 修改用户头像
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userImageUrl"></param>
+        /// <returns></returns>
+        public async Task<ApiResult> ChangeUserImage(string userId, string userImageUrl)
         {
             bool isSuccess = await _userRepository.ChangeUserImage(userId, userImageUrl);
             if (isSuccess)
@@ -128,7 +135,13 @@ namespace CTFPlatForm.Service.Register
                 };
         }
 
-        public async Task<ApiResult> ChangeUserNickname(string userId,string newNickName)
+        /// <summary>
+        /// 修改用户昵称
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="newNickName"></param>
+        /// <returns></returns>
+        public async Task<ApiResult> ChangeUserNickname(string userId, string newNickName)
         {
             bool isSuccess = await _userRepository.ChangeUserNickname(userId, newNickName);
             if (isSuccess)
@@ -145,6 +158,12 @@ namespace CTFPlatForm.Service.Register
                 };
         }
 
+        /// <summary>
+        /// 通过旧密码修改用户密码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="req"></param>
+        /// <returns></returns>
         public async Task<ApiResult> ChangePwdByOldPwd(string userId, ChangePwdReq req)
         {
             //验证旧密码

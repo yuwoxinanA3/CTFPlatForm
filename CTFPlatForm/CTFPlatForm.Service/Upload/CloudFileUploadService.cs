@@ -1,16 +1,15 @@
 ﻿using CTFPlatForm.Core.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Service.Upload
 {
+    /// <summary>
+    /// 云服务上传 //to do
+    /// </summary>
     public class CloudFileUploadService : IFileUploadService
     {
+        #region 构造函数
         private readonly string _accessKeyId;
         private readonly string _accessKeySecret;
         private readonly string _endpoint;
@@ -23,7 +22,13 @@ namespace CTFPlatForm.Service.Upload
             _endpoint = configuration["OSS:Endpoint"];
             _bucketName = configuration["OSS:BucketName"];
         }
+        #endregion
 
+        /// <summary>
+        /// 头像上传
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public async Task<string> UploadAvatarAsync(IFormFile file)
         {
             //if (file == null || file.Length == 0)

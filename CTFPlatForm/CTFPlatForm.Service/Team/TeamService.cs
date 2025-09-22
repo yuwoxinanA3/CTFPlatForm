@@ -1,20 +1,16 @@
 ﻿using CTFPlatForm.Core.Dto.Team;
 using CTFPlatForm.Core.Entitys;
 using CTFPlatForm.Core.Interface.Team;
-using CTFPlatForm.Repository.Login;
 using CTFPlatForm.Repository.Team;
-using CTFPlatForm.Repository.User;
-using Perfolizer.Mathematics.Selectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Service.Team
 {
-    public class TeamService:BaseService,ITeamService
+    /// <summary>
+    /// 团队服务类
+    /// </summary>
+    public class TeamService : BaseService, ITeamService
     {
+        #region 构造函数
         private readonly TeamRepository _teamRepository;
 
         /// <summary>
@@ -24,13 +20,25 @@ namespace CTFPlatForm.Service.Team
         {
             _teamRepository = teamRepository;
         }
+        #endregion
 
-        public  async Task<bool> IsAvailableTeamName(string TeamName)
+        /// <summary>
+        /// 团队名是否可用
+        /// </summary>
+        /// <param name="TeamName"></param>
+        /// <returns></returns>
+        public async Task<bool> IsAvailableTeamName(string TeamName)
         {
             return await _teamRepository.IsAvailableTeamName(TeamName);
         }
 
-        public async Task<bool> CreateCTFTeam(string UserId,CreateTeamReq createTeamReq)
+        /// <summary>
+        /// 创建团队
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <param name="createTeamReq"></param>
+        /// <returns></returns>
+        public async Task<bool> CreateCTFTeam(string UserId, CreateTeamReq createTeamReq)
         {
             Teams newTeam = new()
             {
@@ -48,7 +56,7 @@ namespace CTFPlatForm.Service.Team
                 City = createTeamReq.City,
                 University = string.Empty,
                 MemberCount = 1,
-                IsPublic=createTeamReq.IsPublic,
+                IsPublic = createTeamReq.IsPublic,
                 //标准字段
                 CreateUserId = UserId,
                 CreateDate = DateTime.Now,

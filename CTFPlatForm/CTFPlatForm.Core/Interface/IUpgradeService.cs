@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CTFPlatForm.Core.Interface
 {
+    /// <summary>
+    /// 升级服务接口类
+    /// </summary>
     public interface IUpgradeService
     {
         /// <summary>

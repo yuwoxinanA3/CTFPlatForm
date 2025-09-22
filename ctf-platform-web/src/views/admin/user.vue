@@ -1,32 +1,27 @@
 <template>
-    <el-row class="showPanel">
-        <el-col :span="2">
-            <el-menu default-active="1" class="el-menu-vertical-demo card-box" style="padding: 20px 10px 50px 10px">
-
+    <div class="showPanel">
+        <div class="sidebar" style="height: 200px;">
+            <el-menu default-active="1" class="el-menu-vertical-demo card-box" style="padding: 20px 10px 50px 10px;">
                 <el-menu-item index="1" class="sub-nav-font" @click="showUserPanel">
-                    <el-icon :size="18">
+                    <el-icon :size="18" style="margin-right: 8px;">
                         <User />
                     </el-icon>
-                    <span>个人主页</span>
+                    <span>{{ $t('user.pseronPage') }}</span>
                 </el-menu-item>
 
                 <el-menu-item index="2" class="sub-nav-font" @click="showChangePwdPanel">
-                    <el-icon :size="18">
+                    <el-icon :size="18" style="margin-right: 8px;">
                         <Key />
                     </el-icon>
-                    <span>修改密码</span>
+                    <span>{{ $t('user.changePwdPage') }}</span>
                 </el-menu-item>
-
             </el-menu>
-        </el-col>
+        </div>
 
-        <el-col :span="22">
+        <div class="main-content">
             <router-view style="margin-left: 20px;" />
-        </el-col>
-
-    </el-row>
-
-
+        </div>
+    </div>
 </template>
 
 
@@ -53,14 +48,35 @@ const showChangePwdPanel = () => {
 
 <style scoped>
 .showPanel {
-    padding: 40px 17px;
-    border-radius: 10px;
+    display: flex;
+    padding: 20px 0;
     margin: 10px 20px;
+    background: none;
+}
+
+::v-deep(.el-menu) {
+    border-right: none !important;
+    border-bottom: none !important;
+    /* 修复白边 */
+}
+
+.sidebar {
+    flex-shrink: 0;
+    width: auto;
+    min-width: 120px;
+    max-width: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.main-content {
+    flex-grow: 1;
+    border-radius: 10px;
 }
 
 .sub-nav-font {
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 10px;
-    justify-content: center;
+    justify-content: left;
 }
 </style>

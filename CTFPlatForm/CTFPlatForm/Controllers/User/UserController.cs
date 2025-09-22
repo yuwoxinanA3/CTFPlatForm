@@ -1,13 +1,8 @@
 ﻿using CTFPlatForm.Core.Dto.Base;
-using CTFPlatForm.Core.Dto.Login;
 using CTFPlatForm.Core.Dto.User;
-using CTFPlatForm.Core.Interface.Login;
 using CTFPlatForm.Core.Interface.User;
 using CTFPlatForm.Core.Other;
-using CTFPlatForm.Infrastructure.Tools;
-using CTFPlatForm.Service.Login;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -18,6 +13,7 @@ namespace CTFPlatForm.Api.Controllers.User
     /// </summary>
     public class UserController : BaseController
     {
+        #region 构造函数
         private IUserService _userService;
 
         /// <summary>
@@ -25,10 +21,13 @@ namespace CTFPlatForm.Api.Controllers.User
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="logger"></param>
+        /// <param name="userService"></param>
         public UserController(IConfiguration configuration, ILogger<UserController> logger, IUserService userService) : base(configuration, logger)
         {
             _userService = userService;
         }
+
+        #endregion
 
         /// <summary>
         /// 注册用户
@@ -49,7 +48,6 @@ namespace CTFPlatForm.Api.Controllers.User
                 Result = false
             };
         }
-
 
         /// <summary>
         /// 获取用户信息
@@ -112,7 +110,6 @@ namespace CTFPlatForm.Api.Controllers.User
                 Result = false
             };
         }
-
 
         /// <summary>
         /// 修改密码（需要旧密码）

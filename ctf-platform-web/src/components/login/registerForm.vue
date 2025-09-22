@@ -42,7 +42,7 @@
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import type { ElForm } from 'element-plus/lib';
-import type { register_req } from '@/api-services/models/register_req';
+import type { register_req } from '@/api-services/models/user/register_req';
 import axios from 'axios';
 
 const activeName = ref('first')

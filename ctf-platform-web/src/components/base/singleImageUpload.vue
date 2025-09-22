@@ -244,8 +244,10 @@ async function uploadImg(): Promise<void> {
                 //     }
                 // })
 
-                // 后端基础URL (根据你的代理配置，应该使用这个地址来访问后端资源)
-                const BACKEND_BASE_URL = 'http://localhost:5193';
+                // 后端基础URL
+                const BACKEND_BASE_URL = (window as any).APP_CONFIG?.UPLOAD_URL ||
+                    (window as any).APP_CONFIG?.API_URL ||
+                    window.location.origin;
                 // 返回上传后的URL
                 const url = response.data?.avatar || response.data?.url || response.data
                 let fullUrl = url;

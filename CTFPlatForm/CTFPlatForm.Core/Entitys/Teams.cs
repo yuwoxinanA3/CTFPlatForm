@@ -1,13 +1,11 @@
 ﻿using CTFPlatForm.Core.Common;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Core.Entitys
 {
+    /// <summary>
+    /// 团队表结构
+    /// </summary>
     public class Teams : IEntity
     {
 
@@ -51,7 +49,19 @@ namespace CTFPlatForm.Core.Entitys
         /// 队长编号
         /// </summary>
         [SugarColumn(IsNullable = false, Length = 200)]
-        public  string TeamLeader { get; set; }
+        public string TeamLeader { get; set; }
+
+        /// <summary>
+        /// 副队长1
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 200)]
+        public string? TeamLeader1 { get; set; }
+
+        /// <summary>
+        /// 副队长2
+        /// </summary>
+        [SugarColumn(IsNullable = true, Length = 200)]
+        public string? TeamLeader2 { get; set; }
 
         /// <summary>
         /// 战队邮箱

@@ -1,0 +1,83 @@
+/* 日期选择框样式-自定义 */
+.dark-theme .el-picker-panel {
+    background-color: var(--el-bg-color) !important;
+    border: 1px solid var(--el-border-color-light) !important;
+}
+
+.dark-theme .el-date-picker__time-header {
+    border-bottom: 1px dashed var(--el-border-color-light);
+}
+
+.dark-theme .el-date-picker__time-header .el-date-picker__editor-wrap .el-input__inner {
+    background-color: var(--el-bg-color);
+    border: 1px solid var(--el-border-color-light);
+    color: var(--el-text-color-primary);
+}
+
+/* 日一二三四五六下面的横线 */
+.dark-theme .el-picker-panel .el-date-table th {
+    border-bottom: 1px solid var(--el-border-color-light);
+}
+
+/* 左右箭头这一行 */
+.dark-theme .el-picker-panel__icon-btn,
+.dark-theme .el-date-picker__header-label {
+    color: var(--el-text-color-primary) !important;
+}
+
+/* 最下面的footer */
+.dark-theme .el-picker-panel__footer {
+    background-color: var(--el-bg-color);
+    border-top: 1px solid var(--el-border-color-light);
+}
+
+/* 默认当天日期的颜色 */
+.dark-theme .el-date-table td.today span {
+    color: var(--el-color-primary);
+}
+
+/* 选中某天的背景颜色 */
+.dark-theme .el-date-table td.current:not(.disabled) span {
+    background-color: var(--el-color-primary);
+    color: white;
+}
+
+/* 鼠标移动的hover效果 */
+.dark-theme .el-date-table td:hover {
+    background-color: var(--el-menu-hover-bg-color);
+    color: var(--el-menu-hover-text-color);
+}
+
+/* 时间选择框样式 */
+.dark-theme .el-time-panel {
+    border: 1px solid var(--el-border-color-light);
+    background-color: var(--el-bg-color);
+}
+
+.dark-theme .el-time-panel__content {
+    background-color: var(--el-bg-color);
+}
+
+.dark-theme .el-time-spinner__item {
+    color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-time-spinner__item:hover:not(.disabled):not(.active) {
+    background-color: var(--el-menu-hover-bg-color);
+    color: var(--el-menu-hover-text-color);
+}
+
+.dark-theme .el-time-spinner__item.active:not(.disabled) {
+    border-top: 1px solid var(--el-color-primary);
+    border-bottom: 1px solid var(--el-color-primary);
+    color: var(--el-color-primary);
+}
+
+.dark-theme .el-time-panel__footer {
+    border-top: 1px solid var(--el-border-color-light);
+    background-color: var(--el-bg-color);
+}
+
+.dark-theme .el-time-panel__btn.confirm {
+    color: var(--el-color-primary);
+}
