@@ -1,4 +1,5 @@
-# CTFPlatForm
+#  CTFPlatForm
+(当前文档为英文版本,汉化版本请查看README.MD)
 
 ![CTF-Team-Working-Platform](README-EN/ae468a73-bfec-4f39-bd90-7de448bb5cbe.png)
 
@@ -11,7 +12,6 @@ CTFPlatForm is a specialized workspace designed for CTF (Capture The Flag) compe
 - **Event Reminders**: Provides reminders of CTF competition schedules, registration deadlines, and other important event information to help team members participate in competitions promptly.
 
 In summary, the CTF Team Working Platform aims to provide a centralized and efficient working environment to assist team members in collectively improving their skills and achieving better competition results.
-
 
 
 # Demo Environment
