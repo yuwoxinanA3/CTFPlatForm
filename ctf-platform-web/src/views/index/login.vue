@@ -40,7 +40,7 @@
 
 
         <!-- 登录组件框 -->
-        <div style="width: 25%; background-color: white;">
+        <div style="width: 25%; background-color: var(--el-bg-color);">
 
             <div id="login_box">
                 <!-- 登录面板logo区 -->
@@ -96,19 +96,11 @@ import logo from '@/assets/icons/logo.png'
 const showLoginForm = ref(true)
 // 组件挂载时
 onMounted(() => {
-    // 强制设置为亮色主题并指定黑色背景
+    // 强制指定特定巨石阵背景色
     const app = document.getElementById('app')
     if (app) {
-        app.classList.remove('dark-theme')
         app.style.backgroundColor = '#1d1c1c'
     }
-
-    // 设置 html 和 body 元素背景色确保一致性
-    document.documentElement.style.backgroundColor = '#1d1c1c'
-    document.body.style.backgroundColor = '#1d1c1c'
-    // 设置 html 和 body 元素背景色确保一致性
-    document.documentElement.style.backgroundColor = '#1d1c1c'
-    document.body.style.backgroundColor = '#1d1c1c'
 })
 
 // 组件卸载时恢复背景色
@@ -118,10 +110,6 @@ onUnmounted(() => {
     if (app) {
         app.style.backgroundColor = ''
     }
-
-    // 清除 html 和 body 的固定背景色
-    document.documentElement.style.backgroundColor = ''
-    document.body.style.backgroundColor = ''
 })
 </script>
 
@@ -218,6 +206,6 @@ img {
     margin-top: 20px;
     font-size: xx-large;
     font-weight: 400;
-    color: rgb(120, 120, 117);
+    color: var(--el-text-color-secondary);
 }
 </style>

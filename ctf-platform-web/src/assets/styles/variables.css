@@ -10,10 +10,14 @@
   --el-border-color-light: #e4e7ed;
   --el-border-color-lighter: #ebeef5;
   --el-color-primary: #409eff;
+  --el-color-primary-light-3: #66b1ff;
+  --el-color-primary-dark-2: #337ecc;
   --el-menu-bg-color: #ffffff;
   --el-menu-text-color: #909399;
   --el-menu-hover-bg-color: #ecf5ff;
   --el-menu-hover-text-color: #409eff;
+  --el-disabled-bg-color: #f5f7fa;
+  --el-disabled-text-color: #c0c4cc;
 }
 
 /* 深色主题 */
@@ -27,10 +31,14 @@
   --el-border-color-light: #414243;
   --el-border-color-lighter: #343536;
   --el-color-primary: #409eff;
+  --el-color-primary-light-3: #53a8ff;
+  --el-color-primary-dark-2: #337ecc;
   --el-menu-bg-color: #141414;
   --el-menu-text-color: #a3a6ad;
   --el-menu-hover-bg-color: #2d2d2d;
   --el-menu-hover-text-color: #ffffff;
+  --el-disabled-bg-color: #2d2d2d;
+  --el-disabled-text-color: #6c6e72;
 }
 
 /* 确保在暗色主题下元素能正确应用变量 */
@@ -112,6 +120,10 @@
   background-color: #ffffff;
 }
 
+/* 登录页面github图标颜色调整 */
+.dark-theme .github-icon{
+    filter: invert(1);
+}
 
 /* 提高选择器优先级并确保body背景色正确应用 */
 body.dark-theme,

@@ -40,7 +40,7 @@
                         </el-form>
                         <!-- 登录按钮功能区 -->
                         <el-form-item class="el_form_item_login">
-                            <div style="line-height: 22px;margin:0 0 8px 0;color: #9b9b9b;">
+                            <div style="line-height: 22px;margin:0 0 8px 0;color: var(--el-text-color-secondary);">
                                 <span style="vertical-align:middle">{{ $t('login.thridWayLogin') }}</span>
                                 <img :src="qqIcon" width="22" height="22" style="vertical-align:middle;margin-left: 8px"
                                     @click="qqLogin" title="QQ">
@@ -49,7 +49,8 @@
                                 <img :src="giteeIcon" width="22" height="22"
                                     style="vertical-align:middle;margin-left: 8px" @click="giteeLogin" title="Gitee">
                                 <img :src="githubIcon" width="22" height="22"
-                                    style="vertical-align:middle;margin-left: 8px" @click="githubLogin" title="GitHub">
+                                    style="vertical-align:middle;margin-left: 8px;" class="github-icon"
+                                    @click="githubLogin" title="GitHub">
                             </div>
 
                             <div id="login_button_box">
@@ -218,8 +219,6 @@ const submitForm = async () => {
                 deleteCookie('savedUsername');
                 deleteCookie('savedPassword');
             }
-            // 登录成功后将背景色改为白色
-            document.body.style.backgroundColor = '#ebeef5';
             // 登录成功后跳转到主页
             router.push('/home')
         }
@@ -366,7 +365,7 @@ onMounted(() => {
 
 .demo-tabs>.el-tabs__content {
     padding: 32px;
-    color: #6b778c;
+    color: var(--el-text-color-regular);
     font-size: 32px;
     font-weight: 600;
 }
@@ -378,14 +377,14 @@ onMounted(() => {
 
 
 #register {
-    color: #409EFF;
+    color: var(--el-color-primary);
     /* 使用 Element Plus 主色调 */
     cursor: pointer;
     text-decoration: none;
 }
 
 #register:hover {
-    color: #337ecc;
+    color: var(--el-text-color-regular);
     /* 悬停时变深色 */
     text-decoration: underline;
     /* 添加下划线 */
