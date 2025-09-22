@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CTFPlatForm.Core.Dto.User
+﻿namespace CTFPlatForm.Core.Dto.User
 {
+    /// <summary>
+    /// 修改密码请求
+    /// </summary>
     public class ChangePwdReq
     {
         public string OldPassword { get; set; }

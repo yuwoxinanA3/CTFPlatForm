@@ -2,11 +2,6 @@
 using CTFPlatForm.Core.Dto.User;
 using CTFPlatForm.Core.Entitys;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Repository.Login
 {
@@ -15,6 +10,8 @@ namespace CTFPlatForm.Repository.Login
     /// </summary>
     public class LoginRepository : BaseRepository
     {
+
+        #region 构造函数
         /// <summary>
         /// 登录仓储类构造函数
         /// </summary>
@@ -23,6 +20,7 @@ namespace CTFPlatForm.Repository.Login
         {
 
         }
+        #endregion
 
         /// <summary>
         /// 获取用户信息

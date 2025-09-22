@@ -1,23 +1,25 @@
-﻿using CTFPlatForm.Core.Entitys;
-using Perfolizer.Mathematics.Selectors;
-using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SqlSugar;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Repository
 {
-    public class UpgradeRepository:BaseRepository
+    /// <summary>
+    /// 升级服务仓储类
+    /// </summary>
+    public class UpgradeRepository : BaseRepository
     {
+        #region 构造函数
         public UpgradeRepository(SqlSugar.ISqlSugarClient db) : base(db)
         {
 
 
         }
+        #endregion
 
+        /// <summary>
+        /// 初始化数据库
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> InitDataBase()
         {
             //创建数据库
@@ -34,7 +36,7 @@ namespace CTFPlatForm.Repository
                 Id = Guid.NewGuid().ToString(),
                 UserAccount = "admin",
                 NickName = "超级管理员",
-                Password =  BCrypt.Net.BCrypt.HashPassword("123456"),
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
                 UserType = 0,
                 IsEnable = true,
                 Description = "数据库初始化时默认的超级管理员",
@@ -44,6 +46,10 @@ namespace CTFPlatForm.Repository
             return await _db.Insertable(user).ExecuteCommandIdentityIntoEntityAsync();
         }
 
+        /// <summary>
+        /// 数据库升级
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> UpgradeDataBase()
         {
             // SqlSugar 的 InitTables 方法本身就支持增量更新

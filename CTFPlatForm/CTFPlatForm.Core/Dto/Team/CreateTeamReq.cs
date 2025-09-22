@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CTFPlatForm.Core.Dto.Team
 {
+    /// <summary>
+    /// 创建团队请求
+    /// </summary>
     public class CreateTeamReq
     {
         [Required(ErrorMessage = "战队名称缺失")]

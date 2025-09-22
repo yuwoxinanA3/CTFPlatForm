@@ -1,6 +1,4 @@
 ﻿using CTFPlatForm.Core.Interface;
-using CTFPlatForm.Core.Interface.Login;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTFPlatForm.Api.Controllers
@@ -10,6 +8,8 @@ namespace CTFPlatForm.Api.Controllers
     /// </summary>
     public class UpgradeController : BaseController
     {
+
+        #region 构造函数
         private IUpgradeService _upgradeService;
 
         /// <summary>
@@ -21,6 +21,8 @@ namespace CTFPlatForm.Api.Controllers
         {
             _upgradeService = upgradeService;
         }
+        #endregion
+
         /// <summary>
         /// 初始化数据库
         /// </summary>

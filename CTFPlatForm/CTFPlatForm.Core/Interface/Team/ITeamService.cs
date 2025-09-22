@@ -1,12 +1,10 @@
 ﻿using CTFPlatForm.Core.Dto.Team;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Core.Interface.Team
 {
+    /// <summary>
+    /// 团队服务接口类
+    /// </summary>
     public interface ITeamService:IBaseService
     {
         /// <summary>

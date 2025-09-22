@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CTFPlatForm.Core.Dto.Base
 {
+    /// <summary>
+    /// 文本类型请求
+    /// </summary>
     public class TextReq
     {
         [Required(ErrorMessage = "内容缺失")]

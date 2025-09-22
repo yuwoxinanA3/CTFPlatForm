@@ -1,17 +1,31 @@
-﻿// LocalFileUploadService.cs
-using CTFPlatForm.Core.Interface;
+﻿using CTFPlatForm.Core.Interface;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
+/// <summary>
+/// 本地服务上传类
+/// </summary>
 public class LocalFileUploadService : IFileUploadService
 {
+    #region 构造函数
     private readonly IWebHostEnvironment _environment;
-
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="environment"></param>
     public LocalFileUploadService(IWebHostEnvironment environment)
     {
         _environment = environment;
     }
+    #endregion
 
+    /// <summary>
+    /// 头像上传
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
     public async Task<string> UploadAvatarAsync(IFormFile file)
     {
         if (file == null || file.Length == 0)

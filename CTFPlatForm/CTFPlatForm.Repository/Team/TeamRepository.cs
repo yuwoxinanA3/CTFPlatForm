@@ -1,11 +1,5 @@
-﻿using CTFPlatForm.Core.Dto.User;
-using CTFPlatForm.Core.Entitys;
+﻿using CTFPlatForm.Core.Entitys;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Repository.Team
 {
@@ -34,6 +28,11 @@ namespace CTFPlatForm.Repository.Team
             return !exists; 
         }
 
+        /// <summary>
+        /// 创建战队
+        /// </summary>
+        /// <param name="team"></param>
+        /// <returns></returns>
         public async Task<bool> AddTeam(Teams team)
         {
             return await _db.Insertable(team).ExecuteCommandAsync() > 0;

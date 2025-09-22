@@ -1,25 +1,30 @@
 ﻿using CTFPlatForm.Core.Dto.Base;
-using CTFPlatForm.Core.Dto.Login;
 using CTFPlatForm.Core.Dto.Team;
-using CTFPlatForm.Core.Dto.User;
-using CTFPlatForm.Core.Interface.Login;
 using CTFPlatForm.Core.Interface.Team;
-using CTFPlatForm.Infrastructure.Tools;
-using CTFPlatForm.Service.Login;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace CTFPlatForm.Api.Controllers
 {
+    /// <summary>
+    /// 团队相关接口
+    /// </summary>
     public class TeamController : BaseController
     {
+        #region 构造函数
         private ITeamService _teamService;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="logger"></param>
+        /// <param name="teamService"></param>
         public TeamController(IConfiguration configuration, ILogger<TeamController> logger, ITeamService teamService) : base(configuration, logger)
         {
             _teamService = teamService;
         }
+        #endregion
 
         /// <summary>
         /// 判断战队名是否可用
@@ -31,7 +36,6 @@ namespace CTFPlatForm.Api.Controllers
         {
             return await _teamService.IsAvailableTeamName(textReq.TextContent);
         }
-
 
         /// <summary>
         /// 创建战队
@@ -45,7 +49,5 @@ namespace CTFPlatForm.Api.Controllers
             var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
             return await _teamService.CreateCTFTeam(userId, createTeamReq);
         }
-
-
     }
 }

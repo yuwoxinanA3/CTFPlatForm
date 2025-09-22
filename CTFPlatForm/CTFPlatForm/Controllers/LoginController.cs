@@ -1,10 +1,7 @@
-﻿using CTFPlatForm.Api.Config;
-using CTFPlatForm.Core.Dto.Login;
+﻿using CTFPlatForm.Core.Dto.Login;
 using CTFPlatForm.Core.Dto.User;
 using CTFPlatForm.Core.Interface.Login;
-using CTFPlatForm.Core.Other;
 using CTFPlatForm.Infrastructure.Tools;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTFPlatForm.Api.Controllers
@@ -14,6 +11,7 @@ namespace CTFPlatForm.Api.Controllers
     /// </summary>
     public class LoginController : BaseController
     {
+        #region 构造函数
         private ILoginService _loginService;
 
         /// <summary>
@@ -21,10 +19,12 @@ namespace CTFPlatForm.Api.Controllers
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="logger"></param>
+        /// <param name="loginService"></param>
         public LoginController(IConfiguration configuration, ILogger<LoginController> logger, ILoginService loginService) : base(configuration, logger)
         {
             _loginService = loginService;
         }
+        #endregion
 
         /// <summary>
         /// 登录校验

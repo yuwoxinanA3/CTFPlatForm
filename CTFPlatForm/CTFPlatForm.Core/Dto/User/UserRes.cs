@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CTFPlatForm.Core.Dto.User
+﻿namespace CTFPlatForm.Core.Dto.User
 {
+    /// <summary>
+    /// 用户信息响应
+    /// </summary>
     public class UserRes
     {
         /// <summary>

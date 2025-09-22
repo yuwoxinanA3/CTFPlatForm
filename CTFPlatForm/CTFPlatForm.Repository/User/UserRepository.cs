@@ -1,18 +1,12 @@
-﻿using CTFPlatForm.Core.Common;
-using CTFPlatForm.Core.Dto.Login;
-using CTFPlatForm.Core.Dto.User;
+﻿using CTFPlatForm.Core.Dto.User;
 using CTFPlatForm.Core.Entitys;
-using CTFPlatForm.Core.Other;
-using Perfolizer.Mathematics.Selectors;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTFPlatForm.Repository.User
 {
+    /// <summary>
+    /// 用户仓储类
+    /// </summary>
     public class UserRepository : BaseRepository
     {
         #region 构造函数

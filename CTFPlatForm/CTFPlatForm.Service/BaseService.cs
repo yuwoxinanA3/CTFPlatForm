@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CTFPlatForm.Service
+﻿namespace CTFPlatForm.Service
 {
+    /// <summary>
+    /// 服务类基类
+    /// </summary>
     public class BaseService
     {
     }
