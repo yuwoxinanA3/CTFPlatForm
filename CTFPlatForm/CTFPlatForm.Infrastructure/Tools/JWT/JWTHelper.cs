@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CTFPlatForm.Infrastructure.Tools
+namespace CTFPlatForm.Infrastructure.Tools.JWT
 {
     /// <summary>
     /// JWT认证辅助类

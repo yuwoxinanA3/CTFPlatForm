@@ -1,7 +1,7 @@
 ﻿using CTFPlatForm.Core.Dto.Login;
 using CTFPlatForm.Core.Dto.User;
 using CTFPlatForm.Core.Interface.Login;
-using CTFPlatForm.Infrastructure.Tools;
+using CTFPlatForm.Infrastructure.Tools.JWT;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTFPlatForm.Api.Controllers

@@ -37,14 +37,11 @@ namespace CTFPlatForm
 
             #region 配置文件加载
 
-            // 在开发环境中使用嵌入式配置，在生产环境中直接使用 appsettings.json
+            //使用嵌入式配置
             var assembly = typeof(CTFPlatForm.Infrastructure.Tools.ConfigurationBuilderExtensions).Assembly;
-            if (builder.Environment.IsDevelopment())
-            {
                 builder.Configuration
                     .AddEmbeddedJsonFile(assembly, "Configuration.JWT.json")
                     .AddEmbeddedJsonFile(assembly, "Configuration.Database.json");
-            }
 
             #endregion
 
