@@ -1,6 +1,8 @@
 ﻿using CTFPlatForm.Core.Dto.Base;
 using CTFPlatForm.Core.Dto.Team;
+using CTFPlatForm.Core.Entitys;
 using CTFPlatForm.Core.Interface.Team;
+using CTFPlatForm.Infrastructure.CustomException;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -49,5 +51,25 @@ namespace CTFPlatForm.Api.Controllers
             var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
             return await _teamService.CreateCTFTeam(userId, createTeamReq);
         }
+
+        /// <summary>
+        /// 获取团队信息
+        /// </summary>
+        /// <param name="teamId">团队ID</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<TeamInfoRes>> GetTeamInfo([FromQuery(Name = "teamId")] string teamId)
+        {
+            try
+            {
+                var teamInfo = await _teamService.GetTeamInfo(teamId);
+                return Ok(teamInfo);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
     }
 }

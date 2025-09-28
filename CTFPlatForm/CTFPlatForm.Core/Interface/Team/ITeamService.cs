@@ -5,7 +5,7 @@ namespace CTFPlatForm.Core.Interface.Team
     /// <summary>
     /// 团队服务接口类
     /// </summary>
-    public interface ITeamService:IBaseService
+    public interface ITeamService : IBaseService
     {
         /// <summary>
         /// 判断战队名是否可用
@@ -21,5 +21,12 @@ namespace CTFPlatForm.Core.Interface.Team
         /// <param name="createTeamReq"></param>
         /// <returns></returns>
         public Task<bool> CreateCTFTeam(string UserId, CreateTeamReq createTeamReq);
+        
+        /// <summary>
+        /// 获取团队信息
+        /// </summary>
+        /// <param name="TeamId"></param>
+        /// <returns></returns>
+        public Task<TeamInfoRes> GetTeamInfo(string TeamId);
     }
 }

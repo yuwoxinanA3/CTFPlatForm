@@ -25,7 +25,7 @@ namespace CTFPlatForm.Repository.Team
         {
             var exists = await _db.Queryable<Teams>()
                 .AnyAsync(p => p.TeamName == TeamName);
-            return !exists; 
+            return !exists;
         }
 
         /// <summary>
@@ -36,6 +36,19 @@ namespace CTFPlatForm.Repository.Team
         public async Task<bool> AddTeam(Teams team)
         {
             return await _db.Insertable(team).ExecuteCommandAsync() > 0;
+        }
+
+        /// <summary>
+        /// 获取指定战队
+        /// </summary>
+        /// <param name="TeamId"></param>
+        /// <returns></returns>
+        public async Task<Teams> GetTeamInfo(string TeamId)
+        {
+            Teams team = await _db.Queryable<Teams>()
+                .FirstAsync(p => p.Id == TeamId);
+
+            return team;
         }
     }
 }
