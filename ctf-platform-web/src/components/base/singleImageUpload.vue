@@ -91,13 +91,15 @@ interface Props {
     value?: string
     defaultAvatar?: string
     title?: string
+    disabled?: boolean
 }
 
 // 定义组件属性
 const props = withDefaults(defineProps<Props>(), {
     value: '',
     defaultAvatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-    title: '修改图片'
+    title: '修改图片',
+    disabled: false
 })
 
 // 定义事件
@@ -130,6 +132,11 @@ const previewUrl = computed(() => {
 // 方法
 /** 编辑头像 */
 function editCropper(): void {
+    // 如果被禁用，则不执行任何操作
+    if (props.disabled) {
+        return;
+    }
+
     // 如果 props.value 包含完整的 URL，则只取路径部分
     if (props.value && props.value.startsWith('http')) {
         try {

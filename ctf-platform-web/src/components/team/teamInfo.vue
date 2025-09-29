@@ -3,7 +3,7 @@
         <div class="top-glow"></div>
         <div class="bottom-glow"></div>
 
-        <SingleImageUpload v-model:value="teamInfo.teamIcon" @success="handleAvatarSuccess" />
+        <SingleImageUpload v-model:value="teamInfo.teamIcon" :disabled="true" />
 
         <div class="center-box">
             <div id="teamName">
@@ -86,14 +86,6 @@ const teamInfo = reactive({
 
 
 //方法
-/**
- * 修改昵称
- */
-const handleAvatarSuccess = (url: string) => {
-    teamInfo.teamIcon = url;
-    //saveNewImage();
-}
-
 
 
 //监听
