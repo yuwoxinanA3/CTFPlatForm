@@ -25,72 +25,231 @@
             </div>
         </div>
         <div class="stats-container">
-            <TeamStatItem :item="{ label: '成立', value: teamInfo.establishmentTime }" />
-            <TeamStatItem :item="{ label: '成员', value: teamInfo.memberCount.toString() }" />
-            <TeamStatItem :item="{ label: '积分', value: teamInfo.teamPoints.toString() }" />
+            <TeamStatItem :item="{ label: $t('team.establishmentTime'), value: teamInfo.establishmentTime }" />
+            <TeamStatItem :item="{ label: $t('team.member'), value: teamInfo.memberCount.toString() }" />
+            <TeamStatItem :item="{ label: $t('team.points'), value: teamInfo.teamPoints.toString() }" />
 
-            <TeamStatItem :item="{ label: '国家/地区', value: teamInfo.country }" />
-            <TeamStatItem :item="{ label: '城市', value: teamInfo.city }" />
-            <TeamStatItem :item="{ label: '组织/机构', value: teamInfo.university }" />
+            <TeamStatItem :item="{ label: $t('team.country'), value: teamInfo.country }" />
+            <TeamStatItem :item="{ label: $t('team.city'), value: teamInfo.city }" />
+            <TeamStatItem :item="{ label: $t('team.organization'), value: teamInfo.university }" />
 
-            <TeamStatItem :item="{ label: '副队长', value: teamInfo.teamLeader1, avatar: teamInfo.userImage1 }" />
-            <TeamStatItem :item="{ label: '队长', value: teamInfo.teamLeader, avatar: teamInfo.userImage }" />
-            <TeamStatItem :item="{ label: '副队长', value: teamInfo.teamLeader2, avatar: teamInfo.userImage2 }" />
+            <TeamStatItem
+                :item="{ label: $t('team.viceCaptain'), value: teamInfo.teamLeader1, avatar: teamInfo.userImage1 }" />
+            <TeamStatItem
+                :item="{ label: $t('team.captain'), value: teamInfo.teamLeader, avatar: teamInfo.userImage }" />
+            <TeamStatItem
+                :item="{ label: $t('team.viceCaptain'), value: teamInfo.teamLeader2, avatar: teamInfo.userImage2 }" />
         </div>
 
         <div class="center-box">
-            <el-button type="warning">查看官网</el-button>
-            <el-button type="success">查看邮箱</el-button>
-            <el-button type="primary">编辑信息</el-button>
+            <el-button type="warning" @click="copyToClipboard(teamInfo.teamWebsite, $t('team.website'))">{{
+                $t('team.viewWebsite') }}</el-button>
+            <el-button type="success" @click="copyToClipboard(teamInfo.teamEmail, $t('team.email'))">{{
+                $t('team.viewEmail') }}</el-button>
+            <el-button type="primary">{{ $t('team.editInfo') }}</el-button>
         </div>
     </div>
 </template>
+
 <script setup lang='ts'>
 //官方引入
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 
 //插件引入
+import { ElMessage } from 'element-plus';
+import { useI18n } from 'vue-i18n';
 
 //自定义引入
 import SingleImageUpload from '@/components/base/singleImageUpload.vue';
 import TeamStatItem from '@/components/team/teamStatItem.vue';
+import apiClient from '@/api-services/apis';
+
 //资源引入
 
 //样式引入
 import '@/assets/styles/element-custom/el-button.css';
 
 
-
 //数据
-const teamInfo = reactive({
-    teamName: "Rotten",
-    teamIcon: "http://localhost:5193/uploads/avatars/1b1e306c-d7df-43de-b9cd-44dd9c903500.png",
-    declaration: "没有网络安全就没有国家安全",
-    teamIntroduction: "一支由网络安全爱好者组成的CTF战队，致力于在网络安全领域不断探索和突破。战队成员来自不同的技术背景，包括Web安全、逆向工程、密码学、二进制漏洞挖掘等多个方向的专业人才。",
-    establishmentTime: "2022-07-01",
-    teamPoints: 9841,
-    teamEmail: "1958522865@qq.com",
-    teamWebsite: "http://60.204.248.120/",
-    country: "中国",
-    city: "杭州",
-    university: "浙江树人学院",
-    memberCount: 4,
+interface Props {
+    teamId?: string
+}
 
-    teamLeader: "小R酱",
-    userImage: "http://127.0.0.1:5193/uploads/avatars/cd4c8079-4e4d-40e4-95de-5d5d5b798709.png",
-    teamLeader1: "Q",
-    userImage1: "https://img1.baidu.com/it/u=2423265256,3468479084&fm=253&fmt=auto&app=138&f=JPEG?w=807&h=800",
-    teamLeader2: "Kicky_Mu",
-    userImage2: "http://127.0.0.1:5193/uploads/avatars/027ab4ed-d3a9-4586-8ffa-205d22090e4b.png",
+// 定义组件属性
+const props = withDefaults(defineProps<Props>(), {
+    teamId: 'cbefe7e0-b167-4e13-be16-98f6ef08a8c3',
 })
 
 
-//方法
+const teamInfo = reactive({
+    teamName: "",
+    teamIcon: "",
+    declaration: "",
+    teamIntroduction: "",
+    establishmentTime: "",
+    teamPoints: 0,
+    teamEmail: "",
+    teamWebsite: "",
+    country: "",
+    city: "",
+    university: "",
+    memberCount: 4,
+    teamLeader: "",
+    userImage: "",
+    teamLeader1: "",
+    userImage1: "",
+    teamLeader2: "",
+    userImage2: "",
+})
 
+//方法
+const { t: $t } = useI18n()
+// 定义默认团队信息键值（使用国际化键而不是翻译后的文本）
+const defaultTeamInfoKeys = {
+    teamName: 'team.noData',
+    teamIcon: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+    declaration: 'team.noDeclaration',
+    teamIntroduction: 'team.noIntroduction',
+    establishmentTime: 'team.notFilled',
+    teamPoints: 0,
+    teamEmail: "",
+    teamWebsite: "",
+    country: 'team.notFilled',
+    city: 'team.notFilled',
+    university: 'team.notFilled',
+    memberCount: 0,
+    teamLeader: 'team.pending',
+    userImage: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+    teamLeader1: 'team.pending',
+    userImage1: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+    teamLeader2: 'team.pending',
+    userImage2: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+};
+/**
+ * 辅助函数获取值，如果值为 null, undefined 或空字符串，则返回默认值
+ * @param value 值
+ * @param defaultValue 默认值
+ * @returns 值或者默认值
+ */
+const getValueOrDefault = (value: any, defaultValueKey: any): any => {
+    // 检查值是否为 null, undefined 或空字符串(根据需要可以调整)
+    if (value === null || value === undefined || value === '') {
+        // 如果默认值是字符串且存在于语言包中，则进行翻译
+        if (typeof defaultValueKey === 'string' && defaultValueKey.startsWith('team.')) {
+            return $t(defaultValueKey);
+        }
+        return defaultValueKey;
+    }
+    // 对于数字类型，额外检查是否为有效数字
+    if (typeof defaultValueKey === 'number' && typeof value === 'string') {
+        const numValue = Number(value);
+        return isNaN(numValue) ? defaultValueKey : numValue;
+    }
+    return value;
+};
+
+/**
+ * 复制文本到剪切板
+ * @param text 要复制的文本
+ * @param label 文本标签（用于提示）
+ */
+const copyToClipboard = async (text: string, label: string) => {
+    try {
+        // 检查文本是否存在
+        if (!text || text.trim() === '') {
+            ElMessage.warning($t('team.notConfigured', { label }));
+            return;
+        }
+
+        // 使用 Clipboard API 复制文本
+        await navigator.clipboard.writeText(text);
+        ElMessage.success($t('team.copySuccess', { label, text }));
+    } catch (error) {
+        ElMessage.error($t('team.copyFailed'));
+    }
+};
+
+
+/**
+ * 获取团队信息
+ */
+const fetchTeamInfo = async () => {
+    try {
+        // 发送请求
+        const response = await apiClient.get('/Team/GetTeamInfo', { params: { teamId: props.teamId } });
+
+        // 处理成功响应
+        if (response.data.isSuccess) {
+            const result = response.data.result || {};
+
+            // 使用辅助函数处理默认值
+            teamInfo.teamName = getValueOrDefault(result.teamName, defaultTeamInfoKeys.teamName);
+            teamInfo.teamIcon = getValueOrDefault(result.teamIcon, defaultTeamInfoKeys.teamIcon);
+            teamInfo.declaration = getValueOrDefault(result.declaration, defaultTeamInfoKeys.declaration);
+            teamInfo.teamIntroduction = getValueOrDefault(result.teamIntroduction, defaultTeamInfoKeys.teamIntroduction);
+            teamInfo.establishmentTime = getValueOrDefault(result.establishmentTime, defaultTeamInfoKeys.establishmentTime);
+            teamInfo.teamPoints = getValueOrDefault(result.teamPoints, defaultTeamInfoKeys.teamPoints);
+            teamInfo.teamEmail = getValueOrDefault(result.teamEmail, defaultTeamInfoKeys.teamEmail);
+            teamInfo.teamWebsite = getValueOrDefault(result.teamWebsite, defaultTeamInfoKeys.teamWebsite);
+            teamInfo.country = getValueOrDefault(result.country, defaultTeamInfoKeys.country);
+            teamInfo.city = getValueOrDefault(result.city, defaultTeamInfoKeys.city);
+            teamInfo.university = getValueOrDefault(result.university, defaultTeamInfoKeys.university);
+            teamInfo.memberCount = getValueOrDefault(result.memberCount, defaultTeamInfoKeys.memberCount);
+            teamInfo.teamLeader = getValueOrDefault(result.teamLeader, defaultTeamInfoKeys.teamLeader);
+            teamInfo.userImage = getValueOrDefault(result.userImage, defaultTeamInfoKeys.userImage);
+            teamInfo.teamLeader1 = getValueOrDefault(result.teamLeader1, defaultTeamInfoKeys.teamLeader1);
+            teamInfo.userImage1 = getValueOrDefault(result.userImage1, defaultTeamInfoKeys.userImage1);
+            teamInfo.teamLeader2 = getValueOrDefault(result.teamLeader2, defaultTeamInfoKeys.teamLeader2);
+            teamInfo.userImage2 = getValueOrDefault(result.userImage2, defaultTeamInfoKeys.userImage2);
+        } else {
+            ElMessage.error($t('team.getTeamInfoError'));
+            // 请求失败时使用默认值
+            resetToDefaultValues();
+        }
+    }
+    catch (error: any) {
+        if (error.response?.status === 401) {
+            ElMessage.error($t('user.tokenExpired'));
+        } else {
+            ElMessage.error($t('team.getTeamInfoError'));
+        }
+        // 出错时使用默认值
+        resetToDefaultValues();
+    }
+}
+
+/**
+ * 设置为默认值
+ */
+const resetToDefaultValues = () => {
+    teamInfo.teamName = $t(defaultTeamInfoKeys.teamName);
+    teamInfo.teamIcon = defaultTeamInfoKeys.teamIcon;
+    teamInfo.declaration = $t(defaultTeamInfoKeys.declaration);
+    teamInfo.teamIntroduction = $t(defaultTeamInfoKeys.teamIntroduction);
+    teamInfo.establishmentTime = $t(defaultTeamInfoKeys.establishmentTime);
+    teamInfo.teamPoints = defaultTeamInfoKeys.teamPoints;
+    teamInfo.teamEmail = defaultTeamInfoKeys.teamEmail;
+    teamInfo.teamWebsite = defaultTeamInfoKeys.teamWebsite;
+    teamInfo.country = $t(defaultTeamInfoKeys.country);
+    teamInfo.city = $t(defaultTeamInfoKeys.city);
+    teamInfo.university = $t(defaultTeamInfoKeys.university);
+    teamInfo.memberCount = defaultTeamInfoKeys.memberCount;
+    teamInfo.teamLeader = $t(defaultTeamInfoKeys.teamLeader);
+    teamInfo.userImage = defaultTeamInfoKeys.userImage;
+    teamInfo.teamLeader1 = $t(defaultTeamInfoKeys.teamLeader1);
+    teamInfo.userImage1 = defaultTeamInfoKeys.userImage1;
+    teamInfo.teamLeader2 = $t(defaultTeamInfoKeys.teamLeader2);
+    teamInfo.userImage2 = defaultTeamInfoKeys.userImage2;
+}
 
 //监听
+onMounted(() => {
+    //获取团队信息
+    fetchTeamInfo()
+})
 
 </script>
+
 <style scoped>
 #teamName {
     display: flex;

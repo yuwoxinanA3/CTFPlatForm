@@ -2,6 +2,7 @@
 using CTFPlatForm.Core.Dto.Team;
 using CTFPlatForm.Core.Entitys;
 using CTFPlatForm.Core.Interface.Team;
+using CTFPlatForm.Core.Other;
 using CTFPlatForm.Infrastructure.CustomException;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -58,16 +59,26 @@ namespace CTFPlatForm.Api.Controllers
         /// <param name="teamId">团队ID</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<TeamInfoRes>> GetTeamInfo([FromQuery(Name = "teamId")] string teamId)
+        public async Task<ApiResult> GetTeamInfo([FromQuery(Name = "teamId")] string teamId)
         {
             try
             {
                 var teamInfo = await _teamService.GetTeamInfo(teamId);
-                return Ok(teamInfo);
+                return new ApiResult()
+                {
+                    IsSuccess = true,
+                    Result = teamInfo,
+                    Msg = null
+                };
             }
             catch (NotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return new ApiResult()
+                {
+                    IsSuccess = false,
+                    Result = null,
+                    Msg = NotFound(ex.Message).ToString()
+                };
             }
         }
 
