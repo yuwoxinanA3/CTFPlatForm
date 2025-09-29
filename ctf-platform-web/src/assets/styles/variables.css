@@ -18,6 +18,12 @@
   --el-menu-hover-text-color: #409eff;
   --el-disabled-bg-color: #f5f7fa;
   --el-disabled-text-color: #c0c4cc;
+  --el-color-success: #67c23a;
+  --el-color-success-light-3: #95d475;
+  --el-color-success-dark-2: #529b2e;
+  --el-color-warning: #e6a23c;
+  --el-color-warning-light-3: #eebe77;
+  --el-color-warning-dark-2: #b88230;
 }
 
 /* 深色主题 */
@@ -39,6 +45,12 @@
   --el-menu-hover-text-color: #ffffff;
   --el-disabled-bg-color: #2d2d2d;
   --el-disabled-text-color: #6c6e72;
+  --el-color-success: #67c23a;
+  --el-color-success-light-3: #76c54d;
+  --el-color-success-dark-2: #529b2e;
+  --el-color-warning: #e6a23c;
+  --el-color-warning-light-3: #ebb563;
+  --el-color-warning-dark-2: #b88230;
 }
 
 /* 确保在暗色主题下元素能正确应用变量 */
@@ -48,81 +60,9 @@
   color: var(--el-text-color-primary);
 }
 
-/* 适配 Element Plus 菜单组件 */
-.dark-theme .el-menu {
-  background-color: var(--el-menu-bg-color);
-  border-bottom: 1px solid var(--el-border-color);
-}
-
-.dark-theme .el-menu-item {
-  color: var(--el-menu-text-color);
-}
-
-.dark-theme .el-menu-item:hover {
-  background-color: var(--el-menu-hover-bg-color);
-  color: var(--el-menu-hover-text-color);
-}
-
-.dark-theme .el-menu-item.is-active {
-  color: var(--el-color-primary);
-}
-
-.dark-theme .el-sub-menu__title {
-  color: var(--el-menu-text-color);
-}
-
-.dark-theme .el-sub-menu__title:hover {
-  background-color: var(--el-menu-hover-bg-color);
-  color: var(--el-menu-hover-text-color);
-}
-
-/* 适配 Element Plus 其他常用组件 */
-.dark-theme .el-dialog {
-  background-color: var(--el-bg-color);
-  border: 1px solid var(--el-border-color);
-}
-
-.dark-theme .el-dialog__header {
-  border-bottom: 1px solid var(--el-border-color);
-}
-
-.dark-theme .el-dialog__footer {
-  border-top: 1px solid var(--el-border-color);
-}
-
-.dark-theme .el-button {
-  border-color: var(--el-border-color);
-}
-
-.dark-theme .el-button--primary {
-  background-color: var(--el-color-primary);
-  border-color: var(--el-color-primary);
-}
-
-
-
-/* <el-switch> */
-.dark-theme .el-switch__core {
-  background-color: var(--el-border-color-lighter);
-  border-color: var(--el-border-color-light);
-}
-
-.dark-theme .el-switch__core::before {
-  background-color: var(--el-text-color-primary);
-}
-
-.dark-theme .el-switch__core.is-checked {
-  background-color: var(--el-color-primary);
-}
-
-.dark-theme .el-switch__core.is-checked::before {
-  transform: translateX(100%);
-  background-color: #ffffff;
-}
-
 /* 登录页面github图标颜色调整 */
-.dark-theme .github-icon{
-    filter: invert(1);
+.dark-theme .github-icon {
+  filter: invert(1);
 }
 
 /* 提高选择器优先级并确保body背景色正确应用 */

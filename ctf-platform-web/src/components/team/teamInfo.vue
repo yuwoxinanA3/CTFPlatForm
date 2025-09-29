@@ -37,6 +37,12 @@
             <TeamStatItem :item="{ label: '队长', value: teamInfo.teamLeader, avatar: teamInfo.userImage }" />
             <TeamStatItem :item="{ label: '副队长', value: teamInfo.teamLeader2, avatar: teamInfo.userImage2 }" />
         </div>
+
+        <div class="center-box">
+            <el-button type="warning">查看官网</el-button>
+            <el-button type="success">查看邮箱</el-button>
+            <el-button type="primary">编辑信息</el-button>
+        </div>
     </div>
 </template>
 <script setup lang='ts'>
@@ -51,6 +57,9 @@ import TeamStatItem from '@/components/team/teamStatItem.vue';
 //资源引入
 
 //样式引入
+import '@/assets/styles/element-custom/el-button.css';
+
+
 
 //数据
 const teamInfo = reactive({

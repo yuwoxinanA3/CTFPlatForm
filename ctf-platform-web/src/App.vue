@@ -9,6 +9,8 @@
 <style>
 /* 全局样式 */
 @import '@/assets/styles/variables.css';
+@import '@/assets/styles/element-custom/el-menu.css';
+@import '@/assets/styles/element-custom/el-dialog.css';
 
 body {
     background-color: var(--el-bg-color-page);

@@ -1,0 +1,27 @@
+/* 适配 Element Plus 菜单组件 */
+.dark-theme .el-menu {
+  background-color: var(--el-menu-bg-color);
+  border-bottom: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-menu-item {
+  color: var(--el-menu-text-color);
+}
+
+.dark-theme .el-menu-item:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}
+
+.dark-theme .el-menu-item.is-active {
+  color: var(--el-color-primary);
+}
+
+.dark-theme .el-sub-menu__title {
+  color: var(--el-menu-text-color);
+}
+
+.dark-theme .el-sub-menu__title:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}

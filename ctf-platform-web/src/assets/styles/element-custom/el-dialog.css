@@ -1,0 +1,12 @@
+.dark-theme .el-dialog {
+  background-color: var(--el-bg-color);
+  border: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-dialog__header {
+  border-bottom: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-dialog__footer {
+  border-top: 1px solid var(--el-border-color);
+}

@@ -1,0 +1,33 @@
+/* el-button.css */
+.dark-theme .el-button {
+  border-color: var(--el-border-color);
+}
+
+.dark-theme .el-button--primary {
+  background-color: var(--el-color-primary);
+  border-color: var(--el-color-primary);
+}
+
+/* 新增 success 类型按钮样式 */
+.dark-theme .el-button--success {
+  background-color: var(--el-color-success);
+  border-color: var(--el-color-success);
+}
+
+.dark-theme .el-button--success.is-plain {
+  color: var(--el-color-success);
+  background: transparent;
+  border-color: var(--el-color-success);
+}
+
+/* 新增 warning 类型按钮样式 */
+.dark-theme .el-button--warning {
+  background-color: var(--el-color-warning);
+  border-color: var(--el-color-warning);
+}
+
+.dark-theme .el-button--warning.is-plain {
+  color: var(--el-color-warning);
+  background: transparent;
+  border-color: var(--el-color-warning);
+}

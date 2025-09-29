@@ -117,7 +117,8 @@ import apiClient from '@/api-services/apis'
 //样式引入
 import '@/assets/styles/element-custom/el-date-picker.css';
 import '@/assets/styles/element-custom/el-input.css';
-
+import '@/assets/styles/element-custom/el-switch.css';
+import '@/assets/styles/element-custom/el-button.css';
 //数据
 const ruleFormRef = ref<FormInstance>()
 

@@ -27,7 +27,7 @@
                                     </div>
                                     <div>
                                         <span id="register" @click="handleRegisterClick">{{ $t('login.register')
-                                        }}</span>
+                                            }}</span>
                                         &nbsp;
                                         <span id="forgetPassword" @click="forgetPassword">{{
                                             $t('login.forgetPassword') }}</span>
@@ -56,7 +56,7 @@
                             <div id="login_button_box">
                                 <el-button id="login_button" type="primary" @click="submitForm">{{
                                     $t('login.submit')
-                                }}</el-button>
+                                    }}</el-button>
                                 <el-button id="reset_button" type="info" @click="resetForm" plain>{{
                                     $t('login.reset') }}</el-button>
                             </div>
@@ -95,7 +95,7 @@
                                     <el-button id="login_button" type="primary" @click="submitPhoneForm">{{
                                         $t('login.submit') }}</el-button>
                                     <el-button id="reset_button" type="info" plain>{{ $t('login.reset')
-                                    }}</el-button>
+                                        }}</el-button>
                                 </div>
                             </el-form-item>
 
@@ -136,7 +136,7 @@ import apiClient from '@/api-services/apis';
 
 //样式引入
 import '@/assets/styles/element-custom/el-input.css';
-
+import '@/assets/styles/element-custom/el-button.css';
 //数据
 const activeName = ref('first')
 //获取翻译文本
