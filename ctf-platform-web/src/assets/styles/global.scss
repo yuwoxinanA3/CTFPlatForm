@@ -71,9 +71,6 @@ body {
     }
 }
 
-
-
-// 定义动画
 @keyframes glow-left {
     0% {
         transform: translateY(-100%);
@@ -114,75 +111,44 @@ body {
     }
 }
 
-
-
-
-
 //居中显示
 .center-box {
     display: flex;
     justify-content: center;
 }
 
+//显示面板
+.showPanel {
+    display: flex;
+    padding: 20px 0;
+    margin: 10px 20px;
+    background: none;
+}
 
-//组件样式
-// 自定义暗色主题下的 el-input 样式
-.dark-theme {
+::v-deep(.el-menu) {
+    border-right: none !important;
+    border-bottom: none !important;
+    /* 修复白边 */
+}
 
-    //自定义el-inpout样式
-    .el-input__inner {
-        color: #ffffff; // 更纯的白色
-        background-color: #1d1d1d; // 更深的背景色
-    }
 
-    .el-input__wrapper {
-        background-color: #1d1d1d;
+//显示面板内置sub菜单
+.sidebar {
+    flex-shrink: 0;
+    width: auto;
+    min-width: 120px;
+    max-width: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-        &:hover {
-            background-color: #2d2d2d;
-        }
+.main-content {
+    flex-grow: 1;
+    border-radius: 10px;
+}
 
-        &.is-focus {
-            background-color: #252525;
-        }
-    }
-
-    //自定义el-button样式
-    .el-button {
-        color: #ffffff; // 设置为纯白色文字
-        background-color: #2d2d2d; // 设置更深的背景色
-        border-color: #4c4d4f; // 设置边框颜色
-
-        &:hover {
-            color: #ffffff;
-            background-color: #3d3d3d;
-            border-color: #606266;
-        }
-
-        &:focus {
-            color: #ffffff;
-            background-color: #3d3d3d;
-            border-color: #606266;
-        }
-    }
-
-    //自定义el-button样式
-    .el-button--primary {
-        background-color: #409eff;
-        border-color: #409eff;
-        color: #ffffff; // 确保文字为纯白色
-
-        &:hover {
-            background-color: #66b1ff;
-            border-color: #66b1ff;
-            color: #ffffff;
-        }
-
-        &:focus {
-            background-color: #66b1ff;
-            border-color: #66b1ff;
-            color: #ffffff;
-        }
-    }
-
+.sub-nav-font {
+    font-size: 16px;
+    border-radius: 10px;
+    justify-content: left;
 }

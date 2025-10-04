@@ -46,37 +46,4 @@ const showChangePwdPanel = () => {
 
 </script>
 
-<style scoped>
-.showPanel {
-    display: flex;
-    padding: 20px 0;
-    margin: 10px 20px;
-    background: none;
-}
-
-::v-deep(.el-menu) {
-    border-right: none !important;
-    border-bottom: none !important;
-    /* 修复白边 */
-}
-
-.sidebar {
-    flex-shrink: 0;
-    width: auto;
-    min-width: 120px;
-    max-width: 200px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.main-content {
-    flex-grow: 1;
-    border-radius: 10px;
-}
-
-.sub-nav-font {
-    font-size: 16px;
-    border-radius: 10px;
-    justify-content: left;
-}
-</style>
+<style scoped></style>

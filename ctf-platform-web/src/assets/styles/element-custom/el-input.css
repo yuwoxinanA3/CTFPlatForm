@@ -5,7 +5,6 @@
 }
 
 .dark-theme .el-input__inner {
-    background-color: var(--el-bg-color);
     border-color: var(--el-border-color-light);
     color: var(--el-text-color-primary);
 }
@@ -59,12 +58,12 @@
 
 /* 字数限制显示样式 */
 .dark-theme .el-input__count {
-  color: var(--el-text-color-secondary);
-  background-color: var(--el-bg-color);
-  padding: 4px 8px;
-  font-size: 12px;
-  margin-top: -1px;
-  border-radius: 0 0 4px 4px;
+    color: var(--el-text-color-secondary);
+    background-color: var(--el-bg-color);
+    padding: 4px 8px;
+    font-size: 12px;
+    margin-top: -1px;
+    border-radius: 0 0 4px 4px;
 }
 
 .dark-theme .el-textarea__inner::-webkit-input-placeholder {

@@ -35,6 +35,10 @@ import { useI18n } from 'vue-i18n';
 
 //资源引入
 
+//样式引入
+import '@/assets/styles/element-custom/el-input.css';
+import '@/assets/styles/element-custom/el-button.css';
+
 //数据
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({

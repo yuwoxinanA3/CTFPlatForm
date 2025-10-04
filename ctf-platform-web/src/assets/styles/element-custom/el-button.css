@@ -1,11 +1,26 @@
 /* el-button.css */
 .dark-theme .el-button {
+  color: var(--el-text-color-primary);
+  background-color: var(--el-bg-color);
   border-color: var(--el-border-color);
 }
 
 .dark-theme .el-button--primary {
   background-color: var(--el-color-primary);
   border-color: var(--el-color-primary);
+  color: var(--el-text-color-primary);
+
+  &:hover {
+    background-color: var(--el-color-primary);
+    border-color: var(--el-color-primary);
+    color: var(--el-text-color-primary);
+  }
+
+  &:focus {
+    background-color: var(--el-color-primary);
+    border-color: var(--el-color-primary);
+    color: var(--el-text-color-primary);
+  }
 }
 
 /* 新增 success 类型按钮样式 */
