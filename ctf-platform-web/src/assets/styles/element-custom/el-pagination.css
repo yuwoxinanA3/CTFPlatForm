@@ -1,0 +1,131 @@
+/* src/assets/styles/element-custom/el-pagination.css */
+
+.dark-theme .el-pagination {
+  --el-pagination-bg-color: var(--el-bg-color);
+  --el-pagination-button-disabled-bg-color: var(--el-disabled-bg-color);
+  --el-pagination-button-disabled-color: var(--el-disabled-text-color);
+  --el-pagination-button-hover-bg-color: var(--el-menu-hover-bg-color);
+  --el-pagination-button-hover-color: var(--el-menu-hover-text-color);
+  background-color: none;
+  color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-pagination .btn-prev,
+.dark-theme .el-pagination .btn-next {
+  background-color: none;
+  color: var(--el-text-color-primary);
+  border: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-pagination .btn-prev:hover,
+.dark-theme .el-pagination .btn-next:hover {
+  background-color: var(--el-pagination-bg-color);
+  color: var(--el-pagination-button-hover-color);
+}
+
+.dark-theme .el-pagination .btn-prev:disabled,
+.dark-theme .el-pagination .btn-next:disabled {
+  background-color: var(--el-pagination-button-disabled-bg-color);
+  color: var(--el-pagination-button-disabled-color);
+}
+
+.dark-theme .el-pagination .el-pager li {
+  background-color: var(--el-pagination-bg-color);
+  color: var(--el-text-color-primary);
+  border: 1px solid var(--el-border-color);
+}
+
+.dark-theme .el-pagination .el-pager li:hover {
+  color: var(--el-color-primary);
+}
+
+.dark-theme .el-pagination .el-pager li.is-active {
+  background-color: var(--el-color-primary);
+  color: #fff;
+  border-color: var(--el-color-primary);
+}
+
+.dark-theme .el-pagination .el-pager li.disabled {
+  background-color: var(--el-pagination-button-disabled-bg-color);
+  color: var(--el-pagination-button-disabled-color);
+}
+
+.dark-theme .el-pagination .el-pagination__sizes .el-select .el-input .el-input__wrapper {
+  background-color: var(--el-pagination-bg-color);
+  border-color: var(--el-border-color);
+}
+
+.dark-theme .el-pagination .el-pagination__sizes .el-select .el-input .el-input__wrapper:hover {
+  border-color: var(--el-color-primary);
+}
+
+.dark-theme .el-pagination .el-pagination__jump .el-input .el-input__wrapper {
+  background-color: var(--el-pagination-bg-color);
+  border-color: var(--el-border-color);
+}
+
+.dark-theme .el-pagination .el-pagination__jump .el-input .el-input__wrapper:hover {
+  border-color: var(--el-color-primary);
+}
+
+.dark-theme .el-pagination.is-background .el-pager li {
+  background-color: var(--el-pagination-bg-color);
+  color: var(--el-text-color-primary);
+  border: none;
+}
+
+.dark-theme .el-pagination.is-background .el-pager li:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}
+
+.dark-theme .el-pagination.is-background .el-pager li.is-active {
+  background-color: var(--el-color-primary);
+  color: white;
+}
+
+.dark-theme .el-pagination.is-background .btn-prev,
+.dark-theme .el-pagination.is-background .btn-next {
+  background-color: var(--el-pagination-bg-color);
+  border: none;
+}
+
+.dark-theme .el-pagination.is-background .btn-prev:hover,
+.dark-theme .el-pagination.is-background .btn-next:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}
+
+.dark-theme .el-select__placeholder {
+  color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-select__wrapper {
+  background-color: var(--el-bg-color);
+}
+
+/* 添加到 el-pagination.css 文件末尾 */
+.dark-theme .el-select-dropdown {
+  background-color: var(--el-bg-color);
+  border-color: var(--el-border-color);
+  color: var(--el-text-color-primary);
+}
+
+.dark-theme .el-select-dropdown__item {
+  color: var(--el-text-color-primary);
+  background-color: var(--el-bg-color);
+}
+
+.dark-theme .el-select-dropdown__item:hover {
+  background-color: var(--el-menu-hover-bg-color);
+  color: var(--el-menu-hover-text-color);
+}
+
+.dark-theme .el-select-dropdown__item.is-selected {
+  background-color: var(--el-color-primary);
+  color: white;
+}
+
+.dark-theme .el-select-dropdown__wrap {
+  border-radius: var(--el-border-radius-base);
+}

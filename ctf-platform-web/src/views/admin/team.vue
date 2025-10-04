@@ -8,6 +8,12 @@
                     </el-icon>
                     <span>{{ $t('team.createTeam') }}</span>
                 </el-menu-item>
+                <el-menu-item index="1" class="sub-nav-font" @click="navigateTo('/home/teamCenter')">
+                    <el-icon :size="18" style="margin-right: 8px;">
+                        <Tickets />
+                    </el-icon>
+                    <span>战队大厅</span>
+                </el-menu-item>
                 <el-menu-item index="1" class="sub-nav-font" @click="navigateTo('/home/team/teamInfo')">
                     <el-icon :size="18" style="margin-right: 8px;">
                         <Tickets />
@@ -45,37 +51,4 @@ const navigateTo = (path: string) => {
 //监听
 
 </script>
-<style scoped>
-.showPanel {
-    display: flex;
-    padding: 20px 0;
-    margin: 10px 20px;
-    background-color: none;
-}
-
-::v-deep(.el-menu) {
-    border-right: none !important;
-    border-bottom: none !important;
-    /* 修复白边 */
-}
-
-.sidebar {
-    flex-shrink: 0;
-    width: auto;
-    min-width: 120px;
-    max-width: 200px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.main-content {
-    flex-grow: 1;
-    border-radius: 10px;
-}
-
-.sub-nav-font {
-    font-size: 16px;
-    border-radius: 10px;
-    justify-content: left;
-}
-</style>
+<style scoped></style>

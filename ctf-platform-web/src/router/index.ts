@@ -48,7 +48,12 @@ const router = createRouter({
                         name: 'teamInfo',
                         component: () => import('@/components/team/teamInfo.vue'),
                     }
-                ]
+                    ]
+                },  
+                {
+                    path: 'teamCenter',
+                    name: 'teamCenter',
+                    component: () => import('@/views/admin/teamCenter.vue')
                 }
             ]
         },
