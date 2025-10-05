@@ -220,35 +220,42 @@ onMounted(() => {
 <style scoped>
 .team-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 40px;
-    max-width: 100%;
-    overflow-x: hidden;
-    padding: 0 0px;
-    margin: 0 auto;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
-/* 超大屏幕 (> 1800px) - 一行显示更多卡片 */
-@media (min-width: 1800px) {
-    .team-container {
-        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-        gap: 50px;
-        padding: 0 30px;
-    }
-}
-
-/* 大屏幕 (1400px - 1799px) - 保持4列 */
-@media (min-width: 1400px) and (max-width: 1799px) {
+/* 平板小屏：≥ 768px */
+@media (min-width: 768px) {
     .team-container {
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 45px;
+        gap: 28px;
     }
 }
 
-@media (max-width: 1400px) {
+/* 平板大屏/小桌面：≥ 1024px */
+@media (min-width: 1024px) {
     .team-container {
-        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-        gap: 45px;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 32px;
+    }
+}
+
+/* 大桌面：≥ 1440px */
+@media (min-width: 1440px) {
+    .team-container {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 36px;
+    }
+}
+
+/* 超大屏：≥ 1800px */
+@media (min-width: 1800px) {
+    .team-container {
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 40px;
     }
 }
 </style>

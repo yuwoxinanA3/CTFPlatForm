@@ -1,5 +1,5 @@
 <template>
-    <div class="stat-item">
+    <div class="stat-item" :class="{ 'wide-label': item.label === $t('team.establishmentTime') }">
         <div class="label">{{ item.label }}</div>
         <template v-if="item.avatar">
             <div class="avatar">
@@ -26,10 +26,10 @@ defineProps<{
 
 <style scoped>
 .stat-item {
-    flex: 1 1 calc(33.333% - 16px);
-    min-width: calc(33.333% - 16px);
+    flex: 1 1 calc(32% - 16px);
+    min-width: calc(32% - 16px);
     border-radius: 8px;
-    padding: 12px;
+    padding: 10px;
     text-align: center;
     box-sizing: border-box;
     display: flex;
@@ -38,14 +38,14 @@ defineProps<{
 }
 
 .stat-item .label {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--el-text-color-secondary);
     margin-bottom: 16px;
+    font-weight: bold;
 }
 
 .stat-item .value {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
     color: var(--el-text-color-primary);
     margin-bottom: 8px;
 }

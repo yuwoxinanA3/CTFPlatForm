@@ -26,7 +26,8 @@
             </div>
         </div>
         <div class="stats-container">
-            <TeamStatItem :item="{ label: $t('team.establishmentTime'), value: displayTeamInfo.establishmentTime }" />
+            <TeamStatItem
+                :item="{ label: $t('team.establishmentTime'), value: formatDateTime(displayTeamInfo.establishmentTime) }" />
             <TeamStatItem :item="{ label: $t('team.member'), value: displayTeamInfo.memberCount.toString() }" />
             <TeamStatItem :item="{ label: $t('team.points'), value: displayTeamInfo.teamPoints.toString() }" />
 
@@ -273,6 +274,32 @@ const resetToDefaultValues = () => {
     teamInfo.teamLeader2 = $t(defaultTeamInfoKeys.teamLeader2);
     teamInfo.userImage2 = defaultTeamInfoKeys.userImage2;
 }
+
+/**
+ * 格式化日期时间，只显示年月
+ * @param dateTime 原始日期时间字符串
+ * @returns 格式化后的年月字符串
+ */
+const formatDateTime = (dateTime: string): string => {
+    if (!dateTime) return dateTime;
+
+    try {
+        // 创建日期对象
+        const date = new Date(dateTime);
+
+        // 检查日期是否有效
+        if (isNaN(date.getTime())) {
+            return dateTime;
+        }
+
+        // 格式化为年月格式 (YYYY-MM)
+        return date.getFullYear() + '-' +
+            (date.getMonth() + 1).toString().padStart(2, '0');
+    } catch (error) {
+        // 如果格式化失败，返回原始值
+        return dateTime;
+    }
+};
 
 // 监听（为向后兼容保留）
 onMounted(() => {
