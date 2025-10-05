@@ -155,9 +155,9 @@ const showTeamPanel = () => {
   //判断当前用户是否已加入战队
 
   //已加入战队，默认显示当前战队信息
-  //router.push('/home/team')
+  router.push('/home/team')
   //未加入战队，显示战队大厅
-  router.push('/home/teamCenter')
+  //router.push('/home/teamCenter')
 
 
 }

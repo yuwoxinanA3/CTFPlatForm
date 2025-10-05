@@ -44,12 +44,12 @@ const router = createRouter({
                         component: () => import('@/components/team/createTeam.vue'),
                     },
                     {
-                        path: 'teamInfo',
-                        name: 'teamInfo',
-                        component: () => import('@/components/team/teamInfo.vue'),
+                        path: 'teamInfo/:teamId?', // 可选参数
+                        name: 'TeamInfoView',
+                        component: () => import('@/components/team/teamInfoView.vue')
                     }
                     ]
-                },  
+                },
                 {
                     path: 'teamCenter',
                     name: 'teamCenter',

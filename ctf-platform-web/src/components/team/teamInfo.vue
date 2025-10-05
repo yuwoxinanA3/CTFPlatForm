@@ -1,50 +1,51 @@
+<!-- teamInfo.vue -->
 <template>
     <div class="card-box">
         <div class="top-glow"></div>
         <div class="bottom-glow"></div>
 
-        <SingleImageUpload v-model:value="teamInfo.teamIcon" :disabled="true" />
+        <SingleImageUpload v-model:value="displayTeamInfo.teamIcon" :disabled="true" />
 
         <div class="center-box">
             <div id="teamName">
-                <span class="text-content">{{ teamInfo.teamName }}</span>
+                <span class="text-content">{{ displayTeamInfo.teamName }}</span>
             </div>
         </div>
 
         <div class="center-box">
             <div id="teamDeclaration">
-                <span class="text-content">{{ teamInfo.declaration }}</span>
+                <span class="text-content">{{ displayTeamInfo.declaration }}</span>
             </div>
         </div>
 
         <div class="center-box">
             <div id="teamIntroduction">
                 <p class="intro-text">
-                    {{ teamInfo.teamIntroduction }}
+                    {{ displayTeamInfo.teamIntroduction }}
                 </p>
             </div>
         </div>
         <div class="stats-container">
-            <TeamStatItem :item="{ label: $t('team.establishmentTime'), value: teamInfo.establishmentTime }" />
-            <TeamStatItem :item="{ label: $t('team.member'), value: teamInfo.memberCount.toString() }" />
-            <TeamStatItem :item="{ label: $t('team.points'), value: teamInfo.teamPoints.toString() }" />
+            <TeamStatItem :item="{ label: $t('team.establishmentTime'), value: displayTeamInfo.establishmentTime }" />
+            <TeamStatItem :item="{ label: $t('team.member'), value: displayTeamInfo.memberCount.toString() }" />
+            <TeamStatItem :item="{ label: $t('team.points'), value: displayTeamInfo.teamPoints.toString() }" />
 
-            <TeamStatItem :item="{ label: $t('team.country'), value: teamInfo.country }" />
-            <TeamStatItem :item="{ label: $t('team.city'), value: teamInfo.city }" />
-            <TeamStatItem :item="{ label: $t('team.organization'), value: teamInfo.university }" />
+            <TeamStatItem :item="{ label: $t('team.country'), value: displayTeamInfo.country }" />
+            <TeamStatItem :item="{ label: $t('team.city'), value: displayTeamInfo.city }" />
+            <TeamStatItem :item="{ label: $t('team.organization'), value: displayTeamInfo.university }" />
 
             <TeamStatItem
-                :item="{ label: $t('team.viceCaptain'), value: teamInfo.teamLeader1, avatar: teamInfo.userImage1 }" />
+                :item="{ label: $t('team.viceCaptain'), value: displayTeamInfo.teamLeader1, avatar: displayTeamInfo.userImage1 }" />
             <TeamStatItem
-                :item="{ label: $t('team.captain'), value: teamInfo.teamLeader, avatar: teamInfo.userImage }" />
+                :item="{ label: $t('team.captain'), value: displayTeamInfo.teamLeader, avatar: displayTeamInfo.userImage }" />
             <TeamStatItem
-                :item="{ label: $t('team.viceCaptain'), value: teamInfo.teamLeader2, avatar: teamInfo.userImage2 }" />
+                :item="{ label: $t('team.viceCaptain'), value: displayTeamInfo.teamLeader2, avatar: displayTeamInfo.userImage2 }" />
         </div>
 
         <div class="center-box">
-            <el-button type="warning" @click="copyToClipboard(teamInfo.teamWebsite, $t('team.website'))">{{
+            <el-button type="warning" @click="copyToClipboard(displayTeamInfo.teamWebsite, $t('team.website'))">{{
                 $t('team.viewWebsite') }}</el-button>
-            <el-button type="success" @click="copyToClipboard(teamInfo.teamEmail, $t('team.email'))">{{
+            <el-button type="success" @click="copyToClipboard(displayTeamInfo.teamEmail, $t('team.email'))">{{
                 $t('team.viewEmail') }}</el-button>
             <el-button type="primary">{{ $t('team.editInfo') }}</el-button>
         </div>
@@ -53,7 +54,7 @@
 
 <script setup lang='ts'>
 //官方引入
-import { onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 
 //插件引入
 import { ElMessage } from 'element-plus';
@@ -63,23 +64,36 @@ import { useI18n } from 'vue-i18n';
 import SingleImageUpload from '@/components/base/singleImageUpload.vue';
 import TeamStatItem from '@/components/team/teamStatItem.vue';
 import apiClient from '@/api-services/apis';
-
-//资源引入
-
 //样式引入
 import '@/assets/styles/element-custom/el-button.css';
 
-
-//数据
-interface Props {
-    teamId?: string
+// 数据接口定义
+interface TeamData {
+    id?: string;
+    teamName: string;
+    teamIcon: string;
+    declaration: string;
+    teamIntroduction: string;
+    establishmentTime: string;
+    teamPoints: number;
+    teamEmail: string;
+    teamWebsite: string;
+    country: string;
+    city: string;
+    university: string;
+    memberCount: number;
+    teamLeader: string;
+    userImage: string;
+    teamLeader1: string;
+    userImage1: string;
+    teamLeader2: string;
+    userImage2: string;
 }
 
-// 定义组件属性
-const props = withDefaults(defineProps<Props>(), {
-    teamId: 'cbefe7e0-b167-4e13-be16-98f6ef08a8c3',
-})
-
+interface Props {
+    teamData?: TeamData;
+    teamId?: string; // 保留原有功能，用于向后兼容
+}
 
 const teamInfo = reactive({
     teamName: "",
@@ -102,8 +116,27 @@ const teamInfo = reactive({
     userImage2: "",
 })
 
-//方法
-const { t: $t } = useI18n()
+
+// 定义组件属性
+const props = withDefaults(defineProps<Props>(), {
+    teamData: undefined,
+    teamId: 'cbefe7e0-b167-4e13-be16-98f6ef08a8c3',
+});
+
+// 使用 computed 属性来处理数据展示逻辑
+const displayTeamInfo = computed(() => {
+    // 如果传入了 teamData，则直接使用
+    if (props.teamData) {
+        return props.teamData;
+    }
+
+    // 否则使用原有的 reactive 对象（向后兼容）
+    return { ...teamInfo };
+});
+
+// 方法保持不变
+const { t: $t } = useI18n();
+
 // 定义默认团队信息键值（使用国际化键而不是翻译后的文本）
 const defaultTeamInfoKeys = {
     teamName: 'team.noData',
@@ -125,6 +158,7 @@ const defaultTeamInfoKeys = {
     teamLeader2: 'team.pending',
     userImage2: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
 };
+
 /**
  * 辅助函数获取值，如果值为 null, undefined 或空字符串，则返回默认值
  * @param value 值
@@ -169,9 +203,8 @@ const copyToClipboard = async (text: string, label: string) => {
     }
 };
 
-
 /**
- * 获取团队信息
+ * 获取团队信息（为向后兼容保留）
  */
 const fetchTeamInfo = async () => {
     try {
@@ -217,7 +250,6 @@ const fetchTeamInfo = async () => {
         resetToDefaultValues();
     }
 }
-
 /**
  * 设置为默认值
  */
@@ -242,12 +274,14 @@ const resetToDefaultValues = () => {
     teamInfo.userImage2 = defaultTeamInfoKeys.userImage2;
 }
 
-//监听
+// 监听（为向后兼容保留）
 onMounted(() => {
-    //获取团队信息
-    fetchTeamInfo()
+    // 只有在没有传入 teamData 时才获取团队信息
+    if (!props.teamData) {
+        //获取团队信息
+        fetchTeamInfo()
+    }
 })
-
 </script>
 
 <style scoped>
@@ -289,7 +323,6 @@ onMounted(() => {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-
 
 .stats-container {
     display: flex;
